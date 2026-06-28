@@ -1,0 +1,452 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+@import url("../theme.css");
+
+/* ================================================= */
+/* 1. RESET & KUNCI SCROLL (ANTI BOCOR PUTIH)        */
+/* ================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden !important;
+  background-color: var(--navy);
+}
+
+.login-container {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--navy);
+  z-index: 9999;
+}
+
+/* ================================================= */
+/* 2. LAYAR LOADING (ANIMASI BARU SPEKTAKULER)       */
+/* ================================================= */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  cursor: pointer;
+}
+.loading-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo-glow-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+}
+.logo-glow-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.4) 0%,
+    transparent 70%
+  );
+  animation: pulseGlow 2s infinite alternate;
+  z-index: -1;
+}
+.loading-logo {
+  width: 130px;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+  animation: cinematicZoom 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.loading-text {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.l-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  animation: textReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.l-char.spasi {
+  width: 12px;
+}
+.loading-bar {
+  width: 250px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--primary-light),
+    var(--primary-light)
+  );
+  animation: loadProgress 2.8s ease-in-out forwards;
+}
+.loading-hint {
+  font-size: 13px;
+  color: var(--text-faint);
+  animation: pulseOpacity 2s infinite;
+}
+
+@keyframes cinematicZoom {
+  0% {
+    transform: scale(0.5) rotate(-5deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes pulseGlow {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 1;
+  }
+}
+@keyframes textReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes loadProgress {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes pulseOpacity {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.cinematic-enter-active,
+.cinematic-leave-active {
+  transition: all 0.8s ease;
+}
+.cinematic-leave-to {
+  opacity: 0;
+  transform: scale(1.1);
+  filter: blur(10px);
+}
+
+/* ================================================= */
+/* 3. BACKGROUND DESA (SILUET SVG DINAMIS)           */
+/* ================================================= */
+.village-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.village-bg .bg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+/* Lapisan gelap tipis biar kartu login tetap kebaca di atas background terang */
+.village-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.35));
+  pointer-events: none;
+}
+
+/* ================================================= */
+/* 4. KARTU LOGIN (KEMBALI KE LAYOUT LAMA YG BERSIH) */
+/* ================================================= */
+.login-wrapper {
+  width: 100%;
+  max-width: 440px;
+  padding: 20px;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  justify-content: center;
+}
+.login-wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.login-card {
+  width: 100%;
+  max-height: 90vh;
+  /* KEMBALI KE WARNA SOLID PUTIH KEABUAN SEPERTI LAYOUT LAMA */
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 40px 35px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.login-card::-webkit-scrollbar {
+  display: none;
+}
+
+.header-logo {
+  width: 80px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+.login-header h2 {
+  color: var(--navy);
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+.login-header p {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+/* ================================================= */
+/* 5. FORM INPUTS & BUTTON (GAYA LAMA)               */
+/* ================================================= */
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-body);
+  margin-bottom: 8px;
+}
+.input-field {
+  position: relative;
+}
+.input-field .icon-left {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-faint);
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 14px 45px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  font-family: inherit;
+  background: var(--bg-card);
+  transition: 0.3s;
+  outline: none;
+}
+.input-field input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+.input-field input:focus + .icon-left {
+  color: var(--primary-light);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 16px;
+}
+.toggle-password:hover {
+  color: var(--navy);
+}
+
+/* TOMBOL KEMBALI KE HIJAU SOLID LAYOUT LAMA, DENGAN HOVER BARU */
+.btn-login {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  background: var(--primary-light);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+.btn-login:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4);
+}
+
+.alert-box {
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.alert-box.error {
+  background: #fef2f2;
+  color: var(--danger);
+  border: 1px solid #fecaca;
+}
+.alert-box.success {
+  background: #f0fdf4;
+  color: var(--primary-light);
+  border: 1px solid #bbf7d0;
+}
+.alert-box.warning {
+  background: #fff7ed;
+  color: var(--warning);
+  border: 1px solid #fde68a;
+}
+
+.login-footer p {
+  margin-top: 25px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.footer-univ {
+  font-size: 10px !important;
+  margin-top: 5px !important;
+  color: var(--text-faint) !important;
+}
+
+/* ================================================= */
+/* 6. RESPONSIVE MOBILE FIT (ANTI BOCOR)             */
+/* ================================================= */
+@media (max-width: 480px) {
+  .login-wrapper {
+    padding: 20px;
+  }
+  .login-card {
+    padding: 35px 25px;
+    border-radius: 24px;
+  }
+  .header-logo {
+    width: 75px;
+    margin-bottom: 10px;
+  }
+  .login-header h2 {
+    font-size: 22px;
+  }
+  .login-header p {
+    font-size: 12px;
+    margin-bottom: 25px;
+  }
+  .input-field input {
+    padding: 13px 40px 13px 45px;
+    font-size: 13px;
+  }
+  .input-group {
+    margin-bottom: 15px;
+  }
+  .btn-login {
+    padding: 14px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .loading-logo {
+    width: 110px;
+  }
+  .loading-text {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 360px) {
+  .login-card {
+    padding: 28px 18px;
+    border-radius: 20px;
+  }
+  .login-header h2 {
+    font-size: 20px;
+  }
+  .btn-login {
+    font-size: 13px;
+    padding: 12px;
+  }
+}

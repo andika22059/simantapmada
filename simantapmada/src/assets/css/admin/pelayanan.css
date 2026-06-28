@@ -1,0 +1,627 @@
+/* ==========================================================================
+   FILE: assets/css/pelayanan.css
+   STATUS: ULTRA PREMIUM SAAS EDITION + SCROLL LIMIT + MOBILE FIX
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+.vue-dashboard-body {
+  --primary: #10b981;
+  --primary-dark: #047857;
+  --primary-light: #d1fae5;
+  --secondary: #0f172a;
+  --text-main: #334155;
+  --text-muted: #64748b;
+  --bg-body: #f8fafc;
+  --bg-card: #ffffff;
+  --border: #e2e8f0;
+
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: var(--bg-body);
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-main);
+  margin: 0;
+  padding-bottom: 60px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 95%;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* =========================================
+   1. HEADER DASHBOARD (ESTETIK PREMIUM)
+   ========================================= */
+.page-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 30px 40px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  box-shadow: 0 15px 30px rgba(15, 23, 42, 0.1);
+  border-bottom: 4px solid var(--primary);
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #ffffff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-title p {
+  margin: 8px 0 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+  backdrop-filter: blur(5px);
+}
+
+.btn-back:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   2. KARTU PENCARIAN
+   ========================================= */
+.search-card {
+  background: var(--bg-card);
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.search-card h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--secondary);
+}
+
+.search-box {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+}
+
+.search-box i {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 15px 14px 45px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  box-sizing: border-box;
+  background: #f8fafc;
+  transition: 0.3s;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+/* =========================================
+   3. GRID KOTAK LAYANAN (DENGAN SCROLL)
+   ========================================= */
+.scrollable-layanan {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 15px;
+  margin-bottom: 40px;
+}
+.scrollable-layanan::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollable-layanan::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+.scrollable-layanan::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.grid-layanan {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.service-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.service-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 20px -3px rgba(16, 185, 129, 0.15);
+}
+
+.service-icon {
+  font-size: 26px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  width: 55px;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
+  transition: 0.3s;
+}
+.service-item:hover .service-icon {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.service-text h3 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--secondary);
+}
+
+.service-text p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.divider {
+  height: 2px;
+  background: var(--border);
+  margin: 40px 0;
+}
+
+/* =========================================
+   4. TRACKING SURAT (PENGAJUAN TERAKHIR)
+   ========================================= */
+.recent-log-container h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--secondary);
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.log-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.log-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 20px 25px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+.log-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+.log-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.log-icon {
+  background: #eff6ff;
+  color: #3b82f6;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  font-size: 18px;
+}
+.log-text h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--secondary);
+}
+.log-text span {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.log-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-lacak {
+  background: white;
+  border: 2px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--secondary);
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-lacak:hover {
+  background: var(--secondary);
+  color: white;
+  border-color: var(--secondary);
+}
+
+.log-status {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.log-status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+.log-status.diproses {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.log-status.selesai {
+  background: #dcfce7;
+  color: #047857;
+}
+.log-status.ditolak {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* =========================================
+   5. MODAL TIMELINE
+   ========================================= */
+.modal-overlay-simple {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay-simple.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-box-simple {
+  background: white;
+  width: 650px;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(20px);
+  transition: 0.3s;
+  overflow: hidden;
+}
+.modal-overlay-simple.active .modal-box-simple {
+  transform: translateY(0);
+}
+.modal-header-simple {
+  padding: 25px 30px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+}
+.close-btn-simple {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.close-btn-simple:hover {
+  color: #ef4444;
+  transform: rotate(90deg);
+}
+
+.modal-body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+}
+.modal-left {
+  padding: 30px;
+  border-right: 1px dashed var(--border);
+  background: white;
+}
+.info-group {
+  margin-bottom: 20px;
+}
+.info-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.info-group p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.status-badge.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+.status-badge.diproses {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+.status-badge.selesai {
+  background: #dcfce7;
+  color: #047857;
+}
+.status-badge.ditolak {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.modal-right {
+  padding: 30px;
+}
+.timeline-container {
+  position: relative;
+  padding-left: 25px;
+}
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  bottom: 20px;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-step {
+  position: relative;
+  margin-bottom: 25px;
+  opacity: 0.4;
+  transition: 0.3s;
+}
+.timeline-step.active {
+  opacity: 1;
+}
+.timeline-dot {
+  position: absolute;
+  left: -29px;
+  top: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  border: 3px solid white;
+  box-shadow: 0 0 0 1px #e2e8f0;
+}
+.timeline-step.active .timeline-dot {
+  background: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.timeline-content h5 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--secondary);
+}
+.timeline-content p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.vue-dashboard-body {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+  min-height: 100vh;
+  padding-top: 1px;
+}
+
+.scrollable-layanan-box {
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 30px;
+}
+.scrollable-layanan-box::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollable-layanan-box::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+.scrollable-layanan-box::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.header-buttons-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-list-pelayanan {
+  background: #10b981;
+  color: white;
+  border: 1px solid #10b981;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+.btn-list-pelayanan:hover {
+  background: #047857;
+  border-color: #047857;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 15px !important;
+  }
+  .header-buttons-wrapper {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  .btn-back,
+  .btn-list-pelayanan {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
+/* =========================================
+   6. MEDIA QUERIES HP FIX (Wajib!)
+   ========================================= */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+    margin: 20px auto;
+  }
+
+  /* Header & Tombol Menu Utama di HP turun rapi */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 25px 20px;
+  }
+  .header-actions {
+    width: 100%;
+  }
+  .btn-back {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+  }
+
+  .search-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+  }
+  .search-box {
+    width: 100%;
+  }
+
+  .grid-layanan {
+    grid-template-columns: 1fr;
+  }
+
+  .log-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+  }
+  .log-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modal-box-simple {
+    width: 95%;
+  }
+  .modal-body-grid {
+    grid-template-columns: 1fr;
+  }
+  .modal-left {
+    border-right: none;
+    border-bottom: 1px dashed var(--border);
+  }
+}

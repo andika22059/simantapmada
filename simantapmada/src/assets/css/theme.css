@@ -1,0 +1,52 @@
+:root {
+  /* ---------- WARNA UTAMA (HIJAU EMERALD) ---------- */
+
+  --primary: #059669; /* hijau emerald utama (teduh, formal) */
+  --primary-dark: #047857; /* untuk hover / status ditekan */
+  --primary-light: #10b981; /* aksen lebih terang */
+  --primary-soft: #ecfdf5; /* latar lembut (badge, highlight area) */
+  --primary-border: #a7f3d0; /* border bernuansa hijau */
+
+  /* ---------- WARNA PENDUKUNG (NAVY) ---------- */
+
+  --navy: #0f172a; /* navy paling gelap */
+  --navy-2: #1e293b; /* navy sekunder (gradient) */
+  --header-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+
+  /* ---------- NETRAL (ABU-ABU) ---------- */
+  --bg-page: #f8fafc; /* latar halaman */
+  --bg-card: #ffffff; /* latar kartu/box */
+  --border: #e2e8f0; /* garis pemisah / border input */
+  --text-main: #0f172a; /* teks utama (judul, isi penting) */
+  --text-body: #334155; /* teks paragraf biasa */
+  --text-muted: #64748b; /* teks sekunder / keterangan */
+  --text-faint: #94a3b8; /* placeholder / ikon non-aktif */
+
+  /* ---------- WARNA STATUS ---------- */
+  --success: #059669;
+  --success-soft: #f0fdf4;
+  --warning: #d97706;
+  --warning-soft: #fffbeb;
+  --danger: #ef4444; /* hapus / error / bahaya */
+  --danger-dark: #dc2626;
+  --danger-soft: #fef2f2;
+  --info: #2563eb;
+  --info-soft: #eff6ff;
+
+  /* ---------- WARNA DOKUMEN CETAK (RESMI) ---------- */
+  /* Khusus kop surat & laporan cetak — standar dokumen pemerintah */
+  --print-maroon: #7a1726;
+  --print-blue: #1f4e96;
+  --print-amber: #b45309;
+
+  /* ---------- RADIUS & BAYANGAN ---------- */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 4px 6px rgba(15, 23, 42, 0.04);
+  --shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+
+  /* ---------- FONT ---------- */
+  --font-utama: "Plus Jakarta Sans", sans-serif;
+}

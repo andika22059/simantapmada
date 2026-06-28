@@ -1,0 +1,35 @@
+cat > .gitignore << 'EOF'
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Backend (Laravel)
+backend/vendor/
+backend/.env
+backend/.env.backup
+backend/storage/*.key
+backend/public/storage
+backend/storage/app/*
+!backend/storage/app/.gitignore
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+backend/storage/logs/*
+backend/bootstrap/cache/*
+!backend/bootstrap/cache/.gitignore
+backend/.phpunit.result.cache
+
+# Frontend (Vue/Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+.env
+.env.production
+bootstrap/cache/*.php
+desktop.ini
+EOF
