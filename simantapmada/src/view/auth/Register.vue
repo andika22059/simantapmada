@@ -4,7 +4,7 @@
       <div v-if="isLoading" class="loading-overlay" @click="isLoading = false">
         <div class="loading-content">
           <img
-            src="../assets/img/logoSiMANTAPMADA.png"
+            src="../../assets/img/logoSiMANTAPMADA.png"
             alt="Logo"
             class="loading-logo"
             @error="$event.target.style.display = 'none'"
@@ -33,7 +33,7 @@
       <div class="login-card">
         <div class="login-header">
           <img
-            src="../assets/img/logoSiMANTAPMADA.png"
+            src="../../assets/img/logoSiMANTAPMADA.png"
             alt="Logo"
             class="header-logo"
             @error="$event.target.style.display = 'none'"
