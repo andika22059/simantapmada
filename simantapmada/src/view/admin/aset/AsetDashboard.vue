@@ -186,172 +186,172 @@
     </div>
 
     <Teleport to="body">
-    <div
-      id="modalAset"
-      class="modal-overlay"
-      :class="{ active: isModalOpen }"
-      @click.self="tutupModal"
-    >
-      <div class="modal-box">
-        <div class="modal-header">
-          <h3>
-            <i class="fa-solid fa-box-open" style="color: #10b981"></i> Rincian
-            Aset Desa (KIB)
-          </h3>
-          <button class="btn-close" @click="tutupModal">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-
-        <div class="modal-content">
-          <div class="preview-top" id="area-foto">
-            <img
-              v-if="selectedAset.foto && selectedAset.foto.length > 0"
-              :src="selectedAset.foto[0]"
-              alt="Foto Aset"
-              style="width: 100%; height: 100%; object-fit: cover"
-            />
-            <div
-              v-else
-              style="
-                width: 100%;
-                height: 100%;
-                background: #e2e8f0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: #94a3b8;
-              "
-            >
-              <i class="fa-solid fa-image" style="font-size: 50px"></i>
-            </div>
-          </div>
-
-          <div class="action-bar">
-            <button id="btnCetakModal" class="btn-modal-action">
-              <i class="fa-solid fa-print"></i> Cetak Dokumen & Label KIB
-            </button>
-            <button
-              class="btn-modal-action"
-              style="background: #ef4444"
-              @click="hapusAset(selectedAset.id)"
-            >
-              <i class="fa-solid fa-trash-can"></i> Hapus Aset
+      <div
+        id="modalAset"
+        class="modal-overlay"
+        :class="{ active: isModalOpen }"
+        @click.self="tutupModal"
+      >
+        <div class="modal-box">
+          <div class="modal-header">
+            <h3>
+              <i class="fa-solid fa-box-open" style="color: #10b981"></i>
+              Rincian Aset Desa (KIB)
+            </h3>
+            <button class="btn-close" @click="tutupModal">
+              <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
 
-          <div class="info-qr-grid">
-            <div class="info-side">
-              <div style="margin-bottom: 25px">
-                <span class="label-sm">Nama Inventaris Aset</span>
-                <div
-                  class="value-lg"
-                  id="d-nama"
-                  style="font-size: 22px; color: #10b981"
-                >
-                  {{ selectedAset.nama_aset || "-" }}
-                </div>
-              </div>
-
-              <div class="info-group-grid">
-                <div class="info-item">
-                  <span class="label-sm">Nomor Register Aset</span
-                  ><span
-                    class="value-lg"
-                    id="d-kode"
-                    style="
-                      font-family: monospace;
-                      color: #3b82f6;
-                      font-size: 16px;
-                    "
-                    >{{ selectedAset.nomor_aset || "-" }}</span
-                  >
-                </div>
-                <div class="info-item">
-                  <span class="label-sm">Kategori Jenis</span
-                  ><span class="value-lg" id="d-jenis">{{
-                    selectedAset.jenis_aset || "-"
-                  }}</span>
-                </div>
-                <div class="info-item">
-                  <span class="label-sm">Tahun Perolehan</span
-                  ><span class="value-lg" id="d-tahun">{{
-                    selectedAset.tahun_perolehan || "-"
-                  }}</span>
-                </div>
-                <div class="info-item">
-                  <span class="label-sm">Kondisi Fisik</span
-                  ><span
-                    :class="['badge', getKondisiBadge(selectedAset.kondisi)]"
-                    style="margin-top: 5px; display: inline-block"
-                    >{{ selectedAset.kondisi || "-" }}</span
-                  >
-                </div>
-              </div>
-
+          <div class="modal-content">
+            <div class="preview-top" id="area-foto">
+              <img
+                v-if="selectedAset.foto && selectedAset.foto.length > 0"
+                :src="selectedAset.foto[0]"
+                alt="Foto Aset"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
               <div
+                v-else
                 style="
-                  background: #f0fdf4;
-                  padding: 15px;
-                  border-radius: 12px;
-                  border: 1px dashed #bbf7d0;
-                  margin-top: 20px;
+                  width: 100%;
+                  height: 100%;
+                  background: #e2e8f0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  color: #94a3b8;
                 "
               >
-                <span class="label-sm">Penempatan & Estimasi Nilai</span>
+                <i class="fa-solid fa-image" style="font-size: 50px"></i>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <button id="btnCetakModal" class="btn-modal-action">
+                <i class="fa-solid fa-print"></i> Cetak Dokumen & Label KIB
+              </button>
+              <button
+                class="btn-modal-action"
+                style="background: #ef4444"
+                @click="hapusAset(selectedAset.id)"
+              >
+                <i class="fa-solid fa-trash-can"></i> Hapus Aset
+              </button>
+            </div>
+
+            <div class="info-qr-grid">
+              <div class="info-side">
+                <div style="margin-bottom: 25px">
+                  <span class="label-sm">Nama Inventaris Aset</span>
+                  <div
+                    class="value-lg"
+                    id="d-nama"
+                    style="font-size: 22px; color: #10b981"
+                  >
+                    {{ selectedAset.nama_aset || "-" }}
+                  </div>
+                </div>
+
+                <div class="info-group-grid">
+                  <div class="info-item">
+                    <span class="label-sm">Nomor Register Aset</span
+                    ><span
+                      class="value-lg"
+                      id="d-kode"
+                      style="
+                        font-family: monospace;
+                        color: #3b82f6;
+                        font-size: 16px;
+                      "
+                      >{{ selectedAset.nomor_aset || "-" }}</span
+                    >
+                  </div>
+                  <div class="info-item">
+                    <span class="label-sm">Kategori Jenis</span
+                    ><span class="value-lg" id="d-jenis">{{
+                      selectedAset.jenis_aset || "-"
+                    }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label-sm">Tahun Perolehan</span
+                    ><span class="value-lg" id="d-tahun">{{
+                      selectedAset.tahun_perolehan || "-"
+                    }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label-sm">Kondisi Fisik</span
+                    ><span
+                      :class="['badge', getKondisiBadge(selectedAset.kondisi)]"
+                      style="margin-top: 5px; display: inline-block"
+                      >{{ selectedAset.kondisi || "-" }}</span
+                    >
+                  </div>
+                </div>
+
                 <div
                   style="
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 5px;
-                    align-items: center;
+                    background: #f0fdf4;
+                    padding: 15px;
+                    border-radius: 12px;
+                    border: 1px dashed #bbf7d0;
+                    margin-top: 20px;
                   "
                 >
-                  <span
-                    style="font-weight: 700; color: #0f172a; font-size: 16px"
-                    id="d-lokasi"
-                    >{{ selectedAset.lokasi || "-" }}</span
+                  <span class="label-sm">Penempatan & Estimasi Nilai</span>
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-top: 5px;
+                      align-items: center;
+                    "
                   >
-                  <span
-                    style="font-weight: 800; color: #10b981; font-size: 18px"
-                    id="d-nilai"
-                    >{{
-                      formatRupiahTampilan(selectedAset.nilai_perolehan)
-                    }}</span
-                  >
+                    <span
+                      style="font-weight: 700; color: #0f172a; font-size: 16px"
+                      id="d-lokasi"
+                      >{{ selectedAset.lokasi || "-" }}</span
+                    >
+                    <span
+                      style="font-weight: 800; color: #10b981; font-size: 18px"
+                      id="d-nilai"
+                      >{{
+                        formatRupiahTampilan(selectedAset.nilai_perolehan)
+                      }}</span
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="qr-box">
-              <div id="qrcode-display" class="qr-canvas">
-                <img
-                  v-if="selectedAset.id"
-                  :src="qrUrl"
-                  alt="QR Label Aset"
-                  style="width: 100%; height: 100%; object-fit: contain"
-                />
-                <i
-                  v-else
-                  class="fa-solid fa-qrcode"
-                  style="font-size: 80px; color: #cbd5e1"
-                ></i>
+              <div class="qr-box">
+                <div id="qrcode-display" class="qr-canvas">
+                  <img
+                    v-if="selectedAset.id"
+                    :src="qrUrl"
+                    alt="QR Label Aset"
+                    style="width: 100%; height: 100%; object-fit: contain"
+                  />
+                  <i
+                    v-else
+                    class="fa-solid fa-qrcode"
+                    style="font-size: 80px; color: #cbd5e1"
+                  ></i>
+                </div>
+                <span
+                  style="
+                    font-size: 11px;
+                    font-weight: 800;
+                    color: #64748b;
+                    margin-top: 15px;
+                    text-align: center;
+                  "
+                  >SCAN LABEL FISIK</span
+                >
               </div>
-              <span
-                style="
-                  font-size: 11px;
-                  font-weight: 800;
-                  color: #64748b;
-                  margin-top: 15px;
-                  text-align: center;
-                "
-                >SCAN LABEL FISIK</span
-              >
             </div>
           </div>
         </div>
       </div>
-    </div>
     </Teleport>
   </div>
 </template>
@@ -387,7 +387,6 @@ const fetchAset = async () => {
 
 onMounted(fetchAset);
 
-// 🔥 STATISTIK DIHITUNG OTOMATIS DARI DATA ASLI (BUKAN HARDCODE LAGI)
 const total = computed(() => dataAset.value.length);
 const tanah = computed(
   () => dataAset.value.filter((a) => a.jenis_aset === "Tanah").length,
@@ -429,7 +428,7 @@ const qrUrl = computed(
     )}`,
 );
 
-// 🔥 Format angka mentah dari DB jadi "Rp 15.000.000" untuk ditampilkan
+ 
 const formatRupiahTampilan = (angka) => {
   if (!angka) return "Rp 0";
   return (
