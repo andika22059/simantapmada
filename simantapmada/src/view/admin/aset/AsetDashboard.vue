@@ -326,16 +326,10 @@
               <div class="qr-box">
                 <div id="qrcode-display" class="qr-canvas">
                   <img
-                    v-if="selectedAset.id"
                     :src="qrUrl"
                     alt="QR Label Aset"
                     style="width: 100%; height: 100%; object-fit: contain"
                   />
-                  <i
-                    v-else
-                    class="fa-solid fa-qrcode"
-                    style="font-size: 80px; color: #cbd5e1"
-                  ></i>
                 </div>
                 <span
                   style="
