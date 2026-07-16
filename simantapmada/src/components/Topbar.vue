@@ -262,7 +262,18 @@ const menuRole = computed(() => {
           },
         ],
       },
-      ...arsipAset,
+      // Admin: Arsip & Aset diarahkan ke DASHBOARD (bukan daftar/list),
+      // karena admin punya akses kelola penuh lewat halaman dashboard.
+      {
+        to: "/admin/arsip",
+        icon: "fa-solid fa-box-archive",
+        label: "Arsip Digital",
+      },
+      {
+        to: "/admin/aset",
+        icon: "fa-solid fa-boxes-stacked",
+        label: "Aset Desa",
+      },
     ];
   }
 

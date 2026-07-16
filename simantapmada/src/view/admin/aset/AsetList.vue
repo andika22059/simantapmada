@@ -428,17 +428,27 @@ const isLoading = ref(true);
 // 🔥 DATA ASLI DARI DATABASE (BUKAN DUMMY LAGI)
 const dataAset = ref([]);
 
+// Coba ambil data dengan beberapa kali percobaan (mengatasi API yang
+// kadang lambat/gagal sesaat), tanpa mengosongkan data lama saat gagal.
 const fetchAset = async () => {
   isLoading.value = true;
-  try {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/aset`);
-    dataAset.value = res.data?.data || [];
-  } catch (error) {
-    console.error("Gagal memuat data aset:", error);
-    dataAset.value = [];
-  } finally {
-    isLoading.value = false;
+  const maksPercobaan = 3;
+  for (let percobaan = 1; percobaan <= maksPercobaan; percobaan++) {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/aset`);
+      dataAset.value = res.data?.data || [];
+      isLoading.value = false;
+      return; // sukses, berhenti
+    } catch (error) {
+      console.error(`Gagal memuat data aset (percobaan ${percobaan}):`, error);
+      if (percobaan < maksPercobaan) {
+        await new Promise((r) => setTimeout(r, 500 * percobaan));
+      }
+    }
   }
+  // Semua percobaan gagal: jangan kosongkan data yang sudah tampil.
+  if (!Array.isArray(dataAset.value)) dataAset.value = [];
+  isLoading.value = false;
 };
 
 onMounted(fetchAset);

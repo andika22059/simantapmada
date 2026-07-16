@@ -112,7 +112,7 @@ const routes = [
         component: () => import("../view/admin/aset/AsetTambah.vue"),
       },
       {
-        path: "aset/edit",
+        path: "aset/edit/:id",
         name: "AsetEdit",
         component: () => import("../view/admin/aset/AsetEdit.vue"),
       },
