@@ -325,7 +325,14 @@
 
             <div class="qr-box">
               <div id="qrcode-display" class="qr-canvas">
+                <img
+                  v-if="selectedAset.id"
+                  :src="qrUrl"
+                  alt="QR Label Aset"
+                  style="width: 100%; height: 100%; object-fit: contain"
+                />
                 <i
+                  v-else
                   class="fa-solid fa-qrcode"
                   style="font-size: 80px; color: #cbd5e1"
                 ></i>
@@ -407,6 +414,20 @@ const berat = computed(
 
 // 🔥 5 data teratas (backend sudah urutkan dari yang terbaru)
 const recentAset = computed(() => dataAset.value.slice(0, 5));
+
+// URL halaman scan publik (dibuka warga tanpa login setelah scan QR)
+const scanUrl = computed(
+  () => `${window.location.origin}/scan/aset/${selectedAset.value?.id || ""}`,
+);
+
+// QR aset — isinya URL halaman scan publik, jadi saat di-scan langsung
+// mengarah ke detail aset. Sama seperti di halaman Daftar Aset.
+const qrUrl = computed(
+  () =>
+    `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(
+      scanUrl.value,
+    )}`,
+);
 
 // 🔥 Format angka mentah dari DB jadi "Rp 15.000.000" untuk ditampilkan
 const formatRupiahTampilan = (angka) => {
