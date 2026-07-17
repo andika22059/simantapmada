@@ -117,29 +117,44 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-if="isLoading">
-                <td
-                  colspan="6"
-                  style="text-align: center; padding: 40px; color: #94a3b8"
-                >
-                  <i
-                    class="fa-solid fa-spinner fa-spin"
-                    style="font-size: 40px; margin-bottom: 10px"
-                  ></i
-                  ><br />Memuat data aset...
-                </td>
-              </tr>
+              <template v-if="isLoading">
+                <tr v-for="n in 5" :key="'skeleton-' + n" class="skeleton-row">
+                  <td v-for="c in 6" :key="c">
+                    <span class="skeleton-bar"></span>
+                  </td>
+                </tr>
+              </template>
 
               <tr v-else-if="recentAset.length === 0">
                 <td
                   colspan="6"
-                  style="text-align: center; padding: 40px; color: #94a3b8"
+                  style="text-align: center; padding: 40px 20px; color: #94a3b8"
                 >
                   <i
                     class="fa-solid fa-box-open"
-                    style="font-size: 40px; margin-bottom: 10px"
-                  ></i
-                  ><br />Belum ada data aset tercatat.
+                    style="font-size: 44px; margin-bottom: 12px; color: #cbd5e1"
+                  ></i>
+                  <p style="margin: 0 0 4px; font-weight: 700; color: #64748b">
+                    Belum ada data aset tercatat
+                  </p>
+                  <p style="margin: 0 0 16px; font-size: 13px">
+                    Mulai catat kekayaan desa dengan menambahkan aset pertama.
+                  </p>
+                  <button
+                    class="btn-add-new"
+                    style="
+                      background: #059669;
+                      color: #fff;
+                      border: none;
+                      padding: 10px 18px;
+                      border-radius: 10px;
+                      font-weight: 700;
+                      cursor: pointer;
+                    "
+                    @click="$router.push('/admin/aset/tambah')"
+                  >
+                    <i class="fa-solid fa-plus"></i> Tambah Aset Pertama
+                  </button>
                 </td>
               </tr>
 
@@ -1009,11 +1024,37 @@ const hapusAset = async (id) => {
   overflow-y: auto;
 }
 .preview-top {
-  height: 250px;
+  height: 200px;
   background: #1e293b;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* ===== SKELETON LOADING (baris tabel saat memuat) ===== */
+.skeleton-row td {
+  padding: 14px 16px;
+}
+.skeleton-bar {
+  display: block;
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(
+    90deg,
+    #eef2f7 25%,
+    #e2e8f0 37%,
+    #eef2f7 63%
+  );
+  background-size: 400% 100%;
+  animation: skeletonShimmer 1.4s ease infinite;
+}
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 
 .action-bar {

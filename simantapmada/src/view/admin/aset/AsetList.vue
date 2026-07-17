@@ -80,12 +80,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-if="isLoading">
-                <td colspan="7" class="empty-state">
-                  <i class="fa-solid fa-spinner fa-spin"></i>
-                  <p>Memuat data aset...</p>
-                </td>
-              </tr>
+              <template v-if="isLoading">
+                <tr v-for="n in 8" :key="'skeleton-' + n" class="skeleton-row">
+                  <td v-for="c in 7" :key="c">
+                    <span class="skeleton-bar"></span>
+                  </td>
+                </tr>
+              </template>
 
               <tr v-else-if="filteredAset.length === 0">
                 <td colspan="7" class="empty-state">
@@ -1373,11 +1374,33 @@ const hapusAset = async (id) => {
 
 .preview-top {
   flex: 1;
-  min-height: 280px;
+  min-height: 220px;
+  max-height: 240px;
   background: #1e293b;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* ===== SKELETON LOADING (baris tabel saat memuat) ===== */
+.skeleton-row td {
+  padding: 14px 16px;
+}
+.skeleton-bar {
+  display: block;
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #eef2f7 25%, #e2e8f0 37%, #eef2f7 63%);
+  background-size: 400% 100%;
+  animation: skeletonShimmer 1.4s ease infinite;
+}
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 .placeholder-foto {
   text-align: center;

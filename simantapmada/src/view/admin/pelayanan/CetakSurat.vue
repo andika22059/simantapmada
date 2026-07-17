@@ -303,7 +303,7 @@ const templates = {
         ["Tempat, Tgl Lahir", formatTTL(p.tempat_lahir, p.tgl_lahir)],
         ["Jenis Kelamin", val(p.jk)],
         ["Golongan Darah", val(i.gol_darah)],
-        ["Kewarganegaraan", i.kewarganegaraan || "WNI/Indonesia"],
+        ["Kewarganegaraan", p.kewarganegaraan || "WNI/Indonesia"],
         p.status_kawin ? ["Status Perkawinan", val(p.status_kawin)] : null,
         p.agama ? ["Agama", val(p.agama)] : null,
         p.pekerjaan ? ["Pekerjaan", val(p.pekerjaan)] : null,
@@ -749,7 +749,7 @@ const templates = {
     return `
       ${pembuka}
       ${barisBio(p)}
-      ${i.kewarganegaraan ? `<table class="tabel-bio"><tr><td class="label-bio">Kewarganegaraan</td><td class="titik">:</td><td class="value-bio">${val(i.kewarganegaraan)}</td></tr></table>` : ""}
+      ${p.kewarganegaraan ? `<table class="tabel-bio"><tr><td class="label-bio">Kewarganegaraan</td><td class="titik">:</td><td class="value-bio">${val(p.kewarganegaraan)}</td></tr></table>` : ""}
       <p class="paragraf" style="text-align:justify;">Bahwa benar yang bersangkutan bekerja sebagai <strong>${up(i.pekerjaan_baru)}</strong>.</p>
       <p class="paragraf">Surat keterangan ini dibuat untuk keperluan <strong>${val(i.keperluan)}</strong>.</p>
       ${penutupStd}`;
@@ -863,7 +863,7 @@ const templates = {
     return `
       ${pembuka}
       ${barisBio(p)}
-      ${i.kewarganegaraan ? `<table class="tabel-bio"><tr><td class="label-bio">Kewarganegaraan</td><td class="titik">:</td><td class="value-bio">${val(i.kewarganegaraan)}</td></tr></table>` : ""}
+      ${p.kewarganegaraan ? `<table class="tabel-bio"><tr><td class="label-bio">Kewarganegaraan</td><td class="titik">:</td><td class="value-bio">${val(p.kewarganegaraan)}</td></tr></table>` : ""}
       <p class="paragraf" style="text-align:justify;">${val(i.isi_keterangan)}</p>
       ${penutupStd}`;
   },

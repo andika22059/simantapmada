@@ -30,7 +30,7 @@
             <select
               name="jenis_surat"
               v-model="selectedLayanan"
-              :disabled="isLocked"
+              :disabled="!!editId"
               class="input-control"
               style="cursor: pointer; position: relative; z-index: 99"
               required
@@ -176,6 +176,7 @@
             type="file"
             ref="fileInputRef"
             id="file_input"
+            accept="application/pdf,.pdf"
             multiple
             style="display: none"
             @change="handleFileUpload"
@@ -216,7 +217,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from "vue";
+import { ref, computed, onMounted, nextTick, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -224,6 +225,7 @@ import {
   customFields,
   formatRupiah,
   toggleAlamat,
+  masterKota,
 } from "../../../assets/js/admin/form_template.js";
 
 const router = useRouter();
@@ -246,6 +248,119 @@ const dynamicHtml = computed(() => {
   return customFields[selectedLayanan.value]
     ? customFields[selectedLayanan.value]
     : customFields["default"];
+});
+
+// ===== BATASI INPUT ANGKA (NIK = 16 digit, No HP = maks 15, No KK = 16) =====
+// Field dinamis dari v-html memakai type="number" yang tidak mendukung
+// maxlength. Jadi kita ubah jadi teks numerik + potong otomatis sesuai batas.
+const terapkanBatasInput = () => {
+  const form = formRef.value;
+  if (!form) return;
+  // maks = batas digit; tepat = true kalau wajib pas segitu (NIK/KK),
+  // false kalau cuma batas maksimum (No HP).
+  const aturAngka = (el, maks, tepat) => {
+    if (el.dataset.batasTerpasang === "1") return; // hindari pasang dobel
+    el.dataset.batasTerpasang = "1";
+    el.type = "text";
+    el.setAttribute("inputmode", "numeric");
+    el.setAttribute("maxlength", String(maks));
+    // Hint validasi inline di bawah field
+    const hint = document.createElement("small");
+    hint.style.cssText =
+      "display:block;margin-top:4px;font-size:11px;font-weight:600;";
+    el.insertAdjacentElement("afterend", hint);
+    const perbarui = () => {
+      const bersih = el.value.replace(/\D/g, "").slice(0, maks);
+      if (el.value !== bersih) el.value = bersih;
+      const len = el.value.length;
+      if (tepat) {
+        hint.textContent = `${len}/${maks} digit`;
+        hint.style.color = len === 0 || len === maks ? "#94a3b8" : "#dc2626";
+      } else {
+        hint.textContent = `${len} digit (maks ${maks})`;
+        hint.style.color = len > 0 && len < 9 ? "#dc2626" : "#94a3b8";
+      }
+    };
+    el.addEventListener("input", perbarui);
+    perbarui();
+  };
+  form.querySelectorAll("input").forEach((el) => {
+    const nama = el.getAttribute("name") || "";
+    if (nama.includes("[nik]") || nama.includes("[nik_"))
+      aturAngka(el, 16, true);
+    else if (nama.includes("[hp]")) aturAngka(el, 15, false);
+    else if (nama.includes("[no_kk]")) aturAngka(el, 16, true);
+  });
+};
+
+// ===== AUTOCOMPLETE PEKERJAAN & KOTA (muncul saran saat diketik) =====
+const daftarPekerjaan = [
+  "Petani",
+  "Buruh Tani",
+  "Pedagang",
+  "Wiraswasta",
+  "Karyawan Swasta",
+  "Karyawan BUMN",
+  "PNS",
+  "TNI",
+  "POLRI",
+  "Guru",
+  "Dosen",
+  "Buruh Harian Lepas",
+  "Nelayan",
+  "Peternak",
+  "Sopir",
+  "Tukang Bangunan",
+  "Pengrajin",
+  "Perawat",
+  "Bidan",
+  "Dokter",
+  "Ibu Rumah Tangga",
+  "Pelajar / Mahasiswa",
+  "Pensiunan",
+  "Perangkat Desa",
+  "Honorer",
+  "Belum / Tidak Bekerja",
+  "Lainnya",
+];
+
+const terapkanAutocomplete = () => {
+  const form = formRef.value;
+  if (!form) return;
+  const buatDatalist = (id, daftar) => {
+    if (document.getElementById(id)) return;
+    const dl = document.createElement("datalist");
+    dl.id = id;
+    dl.innerHTML = daftar
+      .map((v) => `<option value="${v}"></option>`)
+      .join("");
+    form.appendChild(dl);
+  };
+  buatDatalist("daftar_pekerjaan", daftarPekerjaan);
+  buatDatalist("daftar_kota", masterKota);
+  form.querySelectorAll("input").forEach((el) => {
+    const nama = el.getAttribute("name") || "";
+    if (nama.includes("pekerjaan")) {
+      el.setAttribute("list", "daftar_pekerjaan");
+      el.setAttribute("autocomplete", "off");
+    } else if (
+      nama.includes("kota") ||
+      nama.includes("[kab_") ||
+      nama.includes("tempat_lahir") ||
+      nama.includes("domisili")
+    ) {
+      el.setAttribute("list", "daftar_kota");
+      el.setAttribute("autocomplete", "off");
+    }
+  });
+};
+
+// Setiap jenis layanan berubah → tunggu field ter-render → pasang batasan.
+watch(dynamicHtml, async () => {
+  await nextTick();
+  await nextTick();
+  terapkanBatasInput();
+  terapkanAutocomplete();
 });
 
 onMounted(() => {
@@ -322,6 +437,8 @@ const muatDataEdit = async (id) => {
         }
       }
       isiForm(dp || {});
+      terapkanBatasInput();
+      terapkanAutocomplete();
       const ket = formRef.value?.querySelector('[name="keterangan"]');
       if (ket) ket.value = d.keterangan || "";
     }, 80);
@@ -338,7 +455,31 @@ const triggerFileInput = () => {
 
 const handleFileUpload = (event) => {
   const files = Array.from(event.target.files);
-  selectedFiles.value = [...selectedFiles.value, ...files];
+  const valid = [];
+  for (const f of files) {
+    const isPdf =
+      f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
+      Swal.fire({
+        icon: "warning",
+        title: "Format tidak sesuai",
+        text: `"${f.name}" bukan PDF. Hanya file PDF yang diperbolehkan.`,
+        confirmButtonColor: "#059669",
+      });
+      continue;
+    }
+    if (f.size > 2 * 1024 * 1024) {
+      Swal.fire({
+        icon: "warning",
+        title: "Ukuran terlalu besar",
+        text: `"${f.name}" melebihi 2MB. Kompres dulu atau pilih file lain.`,
+        confirmButtonColor: "#059669",
+      });
+      continue;
+    }
+    valid.push(f);
+  }
+  selectedFiles.value = [...selectedFiles.value, ...valid];
   event.target.value = "";
 };
 
@@ -351,7 +492,9 @@ const submitPengajuan = async () => {
   isLoading.value = true;
   const formData = new FormData(formRef.value);
 
-  if (isLocked.value) {
+  // Saat mode edit, select jenis layanan disabled (tak ikut submit),
+  // jadi nilainya ditambahkan manual.
+  if (editId.value) {
     formData.append("jenis_surat", selectedLayanan.value);
   }
 
@@ -367,14 +510,18 @@ const submitPengajuan = async () => {
     formData.append("_method", "PUT");
   }
 
-  // MUNCULIN LOADING SWEETALERT MEWAH
+  // Loading + progress bar upload berkas
   Swal.fire({
     title: editing ? "Menyimpan perubahan..." : "Lagi Menyimpan...",
-    text: "Tunggu bentar, Pengajuan sedang Diajukan",
+    html: `
+      <p style="margin:0 0 12px;color:#64748b;font-size:14px">Mengunggah berkas, mohon tunggu…</p>
+      <div style="background:#e2e8f0;border-radius:999px;height:12px;overflow:hidden">
+        <div id="uploadBar" style="background:#059669;height:100%;width:0%;transition:width .2s"></div>
+      </div>
+      <div id="uploadPersen" style="margin-top:8px;font-weight:800;color:#059669">0%</div>
+    `,
     allowOutsideClick: false,
-    didOpen: () => {
-      Swal.showLoading();
-    },
+    showConfirmButton: false,
   });
 
   try {
@@ -382,19 +529,33 @@ const submitPengajuan = async () => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+      // Progress bar: perbarui persentase saat berkas terunggah
+      onUploadProgress: (e) => {
+        if (!e.total) return;
+        const persen = Math.round((e.loaded * 100) / e.total);
+        const bar = document.getElementById("uploadBar");
+        const txt = document.getElementById("uploadPersen");
+        if (bar) bar.style.width = persen + "%";
+        if (txt) {
+          txt.textContent =
+            persen < 100 ? persen + "%" : "Memproses di server…";
+        }
+      },
     });
 
     console.log("Respon Sukses:", response.data);
 
-    // POP-UP BERHASIL
+    // TOAST BERHASIL (halus, di pojok kanan atas)
     await Swal.fire({
+      toast: true,
+      position: "top-end",
       icon: "success",
-      title: "Berhasil!",
-      text: editing
-        ? "Perubahan pengajuan berhasil disimpan!"
-        : "Pengajuan pelayanan berhasil Diajukan",
+      title: editing
+        ? "Perubahan pengajuan disimpan"
+        : "Pengajuan berhasil diajukan",
       showConfirmButton: false,
-      timer: 1500,
+      timer: 2200,
+      timerProgressBar: true,
     });
 
     router.push(editing ? "/admin/pelayanan/list" : "/admin/pelayanan");

@@ -71,7 +71,7 @@ export const bioLengkap = `
         <div class="form-group"><label>NIK (Sesuai KTP)</label><input type="number" name="detail[data_pemohon][nik]" class="input-detail" required></div>
         <div class="form-group"><label>Nama Lengkap</label><input type="text" name="detail[data_pemohon][nama]" class="input-detail" required></div>
         <div class="form-group"><label>Tempat Lahir</label><input type="text" name="detail[data_pemohon][tempat_lahir]" class="input-detail" value="Nganjuk" list="daftar_kota" autocomplete="off" required>${datalistKota}</div>
-        <div class="form-group"><label>Tanggal Lahir <span class="asterisk">*</span></label><div class="input-wrapper"><input type="date" name="detail[data_pemohon][tgl_lahir]" class="input-detail" required onclick="this.showPicker()" style="cursor:pointer"></div></div>
+        <div class="form-group"><label>Tanggal Lahir <span class="asterisk">*</span></label><div class="input-wrapper"><input type="date" name="detail[data_pemohon][tgl_lahir]" class="input-detail" required style="cursor:pointer"></div></div>
         <div class="form-group"><label>Jenis Kelamin</label><select name="detail[data_pemohon][jk]" class="input-detail" required><option>Laki-Laki</option><option>Perempuan</option></select></div>
         <div class="form-group"><label>Kewarganegaraan</label><input type="text" name="detail[data_pemohon][kewarganegaraan]" class="input-detail" value="Indonesia" required></div>
         <div class="form-group"><label>Agama</label><select name="detail[data_pemohon][agama]" class="input-detail" required><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
@@ -105,7 +105,7 @@ export const bioLengkapStatus = `
         <div class="form-group"><label>NIK (Sesuai KTP)</label><input type="number" name="detail[data_pemohon][nik]" class="input-detail" required></div>
         <div class="form-group"><label>Nama Lengkap</label><input type="text" name="detail[data_pemohon][nama]" class="input-detail" required></div>
         <div class="form-group"><label>Tempat Lahir</label><input type="text" name="detail[data_pemohon][tempat_lahir]" class="input-detail" value="Nganjuk" list="daftar_kota" autocomplete="off" required>${datalistKota}</div>
-        <div class="form-group"><label>Tanggal Lahir <span class="asterisk">*</span></label><div class="input-wrapper"><input type="date" name="detail[data_pemohon][tgl_lahir]" class="input-detail" required onclick="this.showPicker()" style="cursor:pointer"></div></div>
+        <div class="form-group"><label>Tanggal Lahir <span class="asterisk">*</span></label><div class="input-wrapper"><input type="date" name="detail[data_pemohon][tgl_lahir]" class="input-detail" required style="cursor:pointer"></div></div>
         <div class="form-group"><label>Jenis Kelamin</label><select name="detail[data_pemohon][jk]" class="input-detail" required><option>Laki-Laki</option><option>Perempuan</option></select></div>
         <div class="form-group"><label>Agama</label><select name="detail[data_pemohon][agama]" class="input-detail" required><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
         <div class="form-group"><label>Kewarganegaraan</label><input type="text" name="detail[data_pemohon][kewarganegaraan]" class="input-detail" value="Indonesia" required></div>

@@ -5,6 +5,10 @@ import "./assets/css/theme.css";
 import "./assets/css/swal-theme.css";
 import App from "./App.vue";
 import router from "./router";
+import { installUploadProgress } from "./assets/js/uploadProgress";
+
+// Progress bar upload global (muncul otomatis di semua form yang unggah file)
+installUploadProgress(axios);
 
 // =====================================================
 // 🔒 AXIOS GLOBAL: pasang token + auto-logout saat 401
