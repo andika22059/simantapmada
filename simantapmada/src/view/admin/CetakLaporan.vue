@@ -45,9 +45,8 @@
               <p class="kop-kecamatan">KECAMATAN LOCERET</p>
               <h1 class="kop-desa">KANTOR DESA MACANAN</h1>
               <p class="kop-alamat">
-                Jl. Raya Desa Mada No. 1, Waru, Sidoarjo 61256
-                &nbsp;&#124;&nbsp; Telp. (031) 123456 &nbsp;&#124;&nbsp; Email:
-                desemada@sidoarjo.go.id
+                Jl. Panglima Sudirman No. 15, Loceret, Kabupaten Nganjuk, Kode
+                Pos 64471
               </p>
             </div>
           </div>
@@ -138,12 +137,12 @@
           <div class="ttd-wrapper">
             <div class="ttd-blok">
               <p class="ttd-label">Mengetahui,</p>
-              <p class="ttd-jabatan">Kepala Desa Mada</p>
+              <p class="ttd-jabatan">Kepala Desa Macanan</p>
               <div class="ttd-ruang"></div>
               <p class="ttd-nama">( ________________________ )</p>
             </div>
             <div class="ttd-blok">
-              <p class="ttd-label">Sidoarjo, {{ tanggalCetak }}</p>
+              <p class="ttd-label">Macanan, {{ tanggalCetak }}</p>
               <p class="ttd-jabatan">Sekretaris Desa</p>
               <div class="ttd-ruang"></div>
               <p class="ttd-nama">( ________________________ )</p>
