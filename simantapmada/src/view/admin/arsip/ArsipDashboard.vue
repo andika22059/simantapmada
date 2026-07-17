@@ -190,7 +190,11 @@
 
             <div class="qr-area-box">
               <div class="qr-canvas">
-                <i class="fa-solid fa-qrcode"></i>
+                <img
+                  :src="qrUrl"
+                  alt="QR Label Arsip"
+                  style="width: 100%; height: 100%; object-fit: contain"
+                />
               </div>
               <span class="qr-label">LABEL FISIK DIGITAL</span>
               <button class="btn-print-qr">
@@ -241,6 +245,17 @@ onMounted(fetchArsip);
 
 // 🔥 5 data arsip terbaru saja untuk ditampilkan di dashboard
 const dataTerbaru = computed(() => arsipList.value.slice(0, 5));
+
+// URL halaman scan publik + QR (sama seperti di halaman Aset)
+const scanUrl = computed(
+  () => `${window.location.origin}/scan/arsip/${selectedArsip.value?.id || ""}`,
+);
+const qrUrl = computed(
+  () =>
+    `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(
+      scanUrl.value,
+    )}`,
+);
 
 // 🔥 STATISTIK DIHITUNG OTOMATIS DARI DATA ASLI (BUKAN HARDCODE LAGI)
 const jumlahAktif = computed(

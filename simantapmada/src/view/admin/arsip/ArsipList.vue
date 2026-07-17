@@ -122,6 +122,7 @@
                       v-if="bisaEdit"
                       class="btn-icon btn-edit"
                       title="Edit Arsip"
+                      @click="router.push('/admin/arsip/edit/' + row.id)"
                     >
                       <i class="fa-solid fa-pen-to-square"></i>
                     </button>
@@ -1164,6 +1165,45 @@ const unduhFile = () => {
 .preview-arsip-none i {
   font-size: 42px;
   color: #cbd5e1;
+}
+
+/* ===== Tombol aksi di footer modal detail arsip ===== */
+.modal-footer-actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #eef2f7;
+  background: #f8fafc;
+}
+.btn-action-view,
+.btn-action-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+.btn-action-view {
+  background: #059669;
+  color: #fff;
+}
+.btn-action-view:hover {
+  background: #047857;
+}
+.btn-action-download {
+  background: #fff;
+  color: #334155;
+  border-color: #cbd5e1;
+}
+.btn-action-download:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
 }
 
 /* Modal 2 kolom → tumpuk saat layar sempit */

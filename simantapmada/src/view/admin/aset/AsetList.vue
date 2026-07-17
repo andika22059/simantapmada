@@ -533,13 +533,12 @@ const cetakRekap = () => {
           <th style="width:16%">Nilai Perolehan</th>
         </tr>
       </thead>
-      <tbody>${baris}</tbody>
-      <tfoot>
+      <tbody>${baris}
         <tr class="total">
           <td colspan="6" style="text-align:right">TOTAL NILAI ASET</td>
           <td style="text-align:right">${formatRupiahTampilan(totalNilaiAset.value)}</td>
         </tr>
-      </tfoot>
+      </tbody>
     </table>
     <div class="ttd">
       <p>Nganjuk, ${tglCetak.value}</p>
@@ -572,7 +571,7 @@ const cetakRekap = () => {
       table { width: 100%; border-collapse: collapse; font-size: 10pt; table-layout: fixed; }
       th, td { border: 1px solid #000; padding: 5px 7px; vertical-align: top; word-wrap: break-word; }
       thead th { background: #e5e7eb; text-align: center; }
-      tfoot .total td { font-weight: bold; background: #f1f5f9; }
+      .total td { font-weight: bold; background: #f1f5f9; }
       .ttd { width: 280px; margin: 26px 0 0 auto; text-align: center; font-size: 10pt; }
       .ttd-space { height: 64px; }
       .ttd .nama { font-weight: bold; }

@@ -61,74 +61,21 @@
             <strong>{{ data.nama_bulan }} {{ data.tahun }}</strong>
           </div>
 
-          <!-- PENGAJUAN SURAT -->
+          <!-- RINGKASAN KUNCI -->
           <div class="rekap-section">
             <h3 class="section-head">
-              <i class="fa-solid fa-file-lines"></i> Pengajuan Surat Layanan
+              <i class="fa-solid fa-gauge-high"></i> Ringkasan Kunci
             </h3>
-            <div class="rekap-grid">
-              <div class="rekap-card">
-                <span class="rc-num">{{ data.pengajuan?.total ?? 0 }}</span>
-                <span class="rc-label">Total Pengajuan</span>
-              </div>
-              <div class="rekap-card">
-                <span class="rc-num text-green">{{
-                  data.pengajuan?.selesai ?? 0
-                }}</span>
-                <span class="rc-label">Selesai</span>
-              </div>
-              <div class="rekap-card">
-                <span class="rc-num text-amber">{{
-                  data.pengajuan?.diproses ?? 0
-                }}</span>
-                <span class="rc-label">Diproses</span>
-              </div>
-              <div class="rekap-card">
-                <span class="rc-num text-red">{{
-                  data.pengajuan?.dikembalikan ?? 0
-                }}</span>
-                <span class="rc-label">Dikembalikan</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- SURAT & DISPOSISI -->
-          <div class="rekap-section">
-            <h3 class="section-head">
-              <i class="fa-solid fa-envelope"></i> Surat & Disposisi
-            </h3>
-            <div class="rekap-grid">
-              <div class="rekap-card">
-                <span class="rc-num">{{ data.surat?.masuk ?? 0 }}</span>
-                <span class="rc-label">Surat Masuk</span>
-              </div>
-              <div class="rekap-card">
-                <span class="rc-num text-teal">{{
-                  data.surat?.didisposisi ?? 0
-                }}</span>
-                <span class="rc-label">Didisposisi</span>
-              </div>
-              <div class="rekap-card">
-                <span class="rc-num">{{ data.surat?.keluar ?? 0 }}</span>
-                <span class="rc-label">Surat Keluar</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- ARSIP & ASET -->
-          <div class="rekap-section">
-            <h3 class="section-head">
-              <i class="fa-solid fa-box-archive"></i> Arsip & Inventaris
-            </h3>
-            <div class="rekap-grid">
-              <div class="rekap-card">
-                <span class="rc-num">{{ data.arsip ?? 0 }}</span>
-                <span class="rc-label">Arsip Baru</span>
-              </div>
-              <div class="rekap-card">
-                <span class="rc-num">{{ data.aset ?? 0 }}</span>
-                <span class="rc-label">Aset Baru</span>
-              </div>
+            <div class="ringkas-grid">
+              <div class="ringkas-card"><span class="rk-num">{{ data.pengajuan?.total ?? 0 }}</span><span class="rk-label">Total Pengajuan</span></div>
+              <div class="ringkas-card"><span class="rk-num text-green">{{ data.pengajuan?.selesai ?? 0 }}</span><span class="rk-label">Selesai</span></div>
+              <div class="ringkas-card"><span class="rk-num text-amber">{{ data.pengajuan?.diproses ?? 0 }}</span><span class="rk-label">Diproses</span></div>
+              <div class="ringkas-card"><span class="rk-num text-red">{{ data.pengajuan?.dikembalikan ?? 0 }}</span><span class="rk-label">Dikembalikan</span></div>
+              <div class="ringkas-card"><span class="rk-num">{{ data.surat?.masuk ?? 0 }}</span><span class="rk-label">Surat Masuk</span></div>
+              <div class="ringkas-card"><span class="rk-num">{{ data.surat?.keluar ?? 0 }}</span><span class="rk-label">Surat Keluar</span></div>
+              <div class="ringkas-card"><span class="rk-num text-teal">{{ data.surat?.didisposisi ?? 0 }}</span><span class="rk-label">Didisposisi</span></div>
+              <div class="ringkas-card"><span class="rk-num">{{ data.arsip ?? 0 }}</span><span class="rk-label">Arsip Baru</span></div>
+              <div class="ringkas-card"><span class="rk-num">{{ data.aset ?? 0 }}</span><span class="rk-label">Aset Baru</span></div>
             </div>
           </div>
 
@@ -162,172 +109,32 @@
             </div>
           </div>
 
-          <!-- DAFTAR DETAIL: PENGAJUAN -->
+          <!-- REKAP RINGKAS (angka saja) -->
           <div class="rekap-section">
             <h3 class="section-head">
-              <i class="fa-solid fa-file-lines"></i> Daftar Pengajuan Surat
+              <i class="fa-solid fa-table-list"></i> Rekap Ringkas
             </h3>
-            <table class="rekap-table">
+            <table class="rekap-table ringkas-table">
               <thead>
-                <tr>
-                  <th class="col-no">No</th>
-                  <th>Jenis Surat</th>
-                  <th>Nomor Surat</th>
-                  <th>Status</th>
-                  <th>Tanggal</th>
-                </tr>
+                <tr><th>Modul / Kategori</th><th class="col-jml">Jumlah</th></tr>
               </thead>
               <tbody>
-                <tr v-if="!listPengajuan.length">
-                  <td colspan="5" class="td-empty">
-                    Tidak ada data bulan ini.
-                  </td>
-                </tr>
-                <tr v-for="(s, i) in listPengajuan" :key="s.id">
-                  <td class="col-no">{{ i + 1 }}</td>
-                  <td>{{ s.jenis_surat }}</td>
-                  <td>
-                    <span v-if="s.nomor_surat" class="nomor-surat">{{
-                      s.nomor_surat
-                    }}</span>
-                    <span v-else class="text-dim">—</span>
-                  </td>
-                  <td>{{ s.status }}</td>
-                  <td>{{ formatTanggal(s.created_at) }}</td>
-                </tr>
+                <tr class="grp"><td colspan="2">Pelayanan Surat</td></tr>
+                <tr><td>Total Pengajuan</td><td class="col-jml">{{ data.pengajuan?.total ?? 0 }}</td></tr>
+                <tr><td>Selesai</td><td class="col-jml">{{ data.pengajuan?.selesai ?? 0 }}</td></tr>
+                <tr><td>Diproses</td><td class="col-jml">{{ data.pengajuan?.diproses ?? 0 }}</td></tr>
+                <tr><td>Dikembalikan</td><td class="col-jml">{{ data.pengajuan?.dikembalikan ?? 0 }}</td></tr>
+                <tr class="grp"><td colspan="2">Persuratan</td></tr>
+                <tr><td>Surat Masuk</td><td class="col-jml">{{ data.surat?.masuk ?? 0 }}</td></tr>
+                <tr><td>Didisposisi</td><td class="col-jml">{{ data.surat?.didisposisi ?? 0 }}</td></tr>
+                <tr><td>Surat Keluar</td><td class="col-jml">{{ data.surat?.keluar ?? 0 }}</td></tr>
+                <tr class="grp"><td colspan="2">Arsip & Inventaris</td></tr>
+                <tr><td>Arsip Baru</td><td class="col-jml">{{ data.arsip ?? 0 }}</td></tr>
+                <tr><td>Aset Baru</td><td class="col-jml">{{ data.aset ?? 0 }}</td></tr>
               </tbody>
             </table>
           </div>
-
-          <!-- DAFTAR DETAIL: SURAT MASUK -->
-          <div class="rekap-section">
-            <h3 class="section-head">
-              <i class="fa-solid fa-inbox"></i> Daftar Surat Masuk
-            </h3>
-            <table class="rekap-table">
-              <thead>
-                <tr>
-                  <th class="col-no">No</th>
-                  <th>No. Surat</th>
-                  <th>Pengirim</th>
-                  <th>Perihal</th>
-                  <th>Disposisi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="!listSuratMasuk.length">
-                  <td colspan="5" class="td-empty">
-                    Tidak ada data bulan ini.
-                  </td>
-                </tr>
-                <tr v-for="(s, i) in listSuratMasuk" :key="s.id">
-                  <td class="col-no">{{ i + 1 }}</td>
-                  <td>{{ s.no_surat }}</td>
-                  <td>{{ s.pengirim }}</td>
-                  <td>{{ s.perihal }}</td>
-                  <td>
-                    <span v-if="s.disposisi_ke" class="tag-mini">{{
-                      s.disposisi_ke
-                    }}</span>
-                    <span v-else class="text-dim">Belum</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- DAFTAR DETAIL: SURAT KELUAR -->
-          <div class="rekap-section">
-            <h3 class="section-head">
-              <i class="fa-solid fa-paper-plane"></i> Daftar Surat Keluar
-            </h3>
-            <table class="rekap-table">
-              <thead>
-                <tr>
-                  <th class="col-no">No</th>
-                  <th>Nomor Surat</th>
-                  <th>Tujuan / Perihal</th>
-                  <th>Tanggal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="!listSuratKeluar.length">
-                  <td colspan="4" class="td-empty">
-                    Tidak ada data bulan ini.
-                  </td>
-                </tr>
-                <tr v-for="(s, i) in listSuratKeluar" :key="s.id">
-                  <td class="col-no">{{ i + 1 }}</td>
-                  <td>
-                    <span class="nomor-surat">{{ s.nomor_surat || "—" }}</span>
-                  </td>
-                  <td>{{ s.tujuan || s.perihal || "-" }}</td>
-                  <td>{{ formatTanggal(s.created_at) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- DAFTAR DETAIL: ARSIP -->
-          <div class="rekap-section">
-            <h3 class="section-head">
-              <i class="fa-solid fa-box-archive"></i> Daftar Arsip
-            </h3>
-            <table class="rekap-table">
-              <thead>
-                <tr>
-                  <th class="col-no">No</th>
-                  <th>Nomor Arsip</th>
-                  <th>Judul</th>
-                  <th>Tanggal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="!listArsip.length">
-                  <td colspan="4" class="td-empty">
-                    Tidak ada data bulan ini.
-                  </td>
-                </tr>
-                <tr v-for="(s, i) in listArsip" :key="s.id">
-                  <td class="col-no">{{ i + 1 }}</td>
-                  <td>{{ s.nomor_arsip || "-" }}</td>
-                  <td>{{ s.judul || "-" }}</td>
-                  <td>{{ formatTanggal(s.created_at) }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <!-- DAFTAR DETAIL: ASET -->
-          <div class="rekap-section">
-            <h3 class="section-head">
-              <i class="fa-solid fa-warehouse"></i> Daftar Aset
-            </h3>
-            <table class="rekap-table">
-              <thead>
-                <tr>
-                  <th class="col-no">No</th>
-                  <th>Nomor Aset</th>
-                  <th>Nama Aset</th>
-                  <th>Kondisi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-if="!listAset.length">
-                  <td colspan="4" class="td-empty">
-                    Tidak ada data bulan ini.
-                  </td>
-                </tr>
-                <tr v-for="(s, i) in listAset" :key="s.id">
-                  <td class="col-no">{{ i + 1 }}</td>
-                  <td>{{ s.nomor_aset || "-" }}</td>
-                  <td>{{ s.nama_aset || "-" }}</td>
-                  <td>{{ s.kondisi || "-" }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </template>
+                </template>
       </div>
     </div>
   </div>
@@ -449,34 +256,8 @@ const cetak = () => {
   const tgl = (iso) => formatTanggal(iso);
   const periode = `${d.nama_bulan || namaBulan[bulan.value - 1]} ${tahun.value}`;
 
-  const seksi = (judul, head, rows) =>
-    `<h4 class="sec">${judul}</h4>` +
-    (rows.length
-      ? `<table><thead><tr>${head
-          .map((h) => `<th>${h}</th>`)
-          .join("")}</tr></thead><tbody>${rows.join("")}</tbody></table>`
-      : `<p class="kosong">Tidak ada data pada periode ini.</p>`);
-
-  const rPeng = listPengajuan.value.map(
-    (r, i) =>
-      `<tr><td class="c">${i + 1}</td><td>${tgl(r.created_at)}</td><td>${esc(r.jenis_surat)}</td><td>${esc(r.nomor_surat)}</td><td class="c">${esc(r.status)}</td></tr>`,
-  );
-  const rMasuk = listSuratMasuk.value.map(
-    (r, i) =>
-      `<tr><td class="c">${i + 1}</td><td>${tgl(r.created_at)}</td><td>${esc(r.no_surat)}</td><td>${esc(r.pengirim)}</td><td>${esc(r.perihal)}</td><td>${esc(r.disposisi_ke)}</td></tr>`,
-  );
-  const rKeluar = listSuratKeluar.value.map(
-    (r, i) =>
-      `<tr><td class="c">${i + 1}</td><td>${tgl(r.tanggal_surat || r.created_at)}</td><td>${esc(r.nomor_surat)}</td><td>${esc(r.tujuan)}</td><td>${esc(r.perihal)}</td></tr>`,
-  );
-  const rArsip = listArsip.value.map(
-    (r, i) =>
-      `<tr><td class="c">${i + 1}</td><td>${esc(r.nomor_arsip)}</td><td>${esc(r.judul)}</td><td>${esc(r.kategori)}</td><td>${tgl(r.created_at)}</td></tr>`,
-  );
-  const rAset = listAset.value.map(
-    (r, i) =>
-      `<tr><td class="c">${i + 1}</td><td>${esc(r.nomor_aset || r.kode_aset)}</td><td>${esc(r.nama_aset)}</td><td>${esc(r.jenis_aset)}</td><td class="c">${esc(r.kondisi)}</td></tr>`,
-  );
+  const row2 = (label, val) => `<tr><td>${label}</td><td class="c">${val ?? 0}</td></tr>`;
+  const grp = (label) => `<tr class="grp"><td colspan="2"><b>${label}</b></td></tr>`;
 
   const inner = `
     <div class="kop">
@@ -487,14 +268,30 @@ const cetak = () => {
     </div>
     <hr class="garis" />
     <h3 class="judul">LAPORAN REKAPITULASI BULANAN<br /><small>Periode: ${periode}</small></h3>
-    <div class="ringkasan">
-      <strong>Ringkasan:</strong> Pelayanan — total ${peng.total ?? 0}, selesai ${peng.selesai ?? 0}, diproses ${peng.diproses ?? 0}, dikembalikan ${peng.dikembalikan ?? 0}. Surat masuk ${sr.masuk ?? 0} (didisposisi ${sr.didisposisi ?? 0}), surat keluar ${sr.keluar ?? 0}. Arsip ${d.arsip ?? 0}, aset ${d.aset ?? 0}.
-    </div>
-    ${seksi("A. Pengajuan Pelayanan Surat", ["No", "Tanggal", "Jenis Surat", "Nomor Surat", "Status"], rPeng)}
-    ${seksi("B. Surat Masuk", ["No", "Tanggal", "No. Surat", "Pengirim", "Perihal", "Disposisi"], rMasuk)}
-    ${seksi("C. Surat Keluar", ["No", "Tanggal", "Nomor Surat", "Tujuan", "Perihal"], rKeluar)}
-    ${seksi("D. Arsip", ["No", "Nomor Arsip", "Judul", "Kategori", "Tanggal"], rArsip)}
-    ${seksi("E. Inventaris Aset", ["No", "Nomor", "Nama", "Kategori", "Kondisi"], rAset)}`;
+    <div class="ringkasan"><strong>Ringkasan:</strong> Pelayanan total ${peng.total ?? 0} (selesai ${peng.selesai ?? 0}, diproses ${peng.diproses ?? 0}, dikembalikan ${peng.dikembalikan ?? 0}). Surat masuk ${sr.masuk ?? 0} (disposisi ${sr.didisposisi ?? 0}), surat keluar ${sr.keluar ?? 0}. Arsip ${d.arsip ?? 0}, aset ${d.aset ?? 0}.</div>
+    <table>
+      <thead><tr><th style="text-align:left">Modul / Kategori</th><th style="width:130px">Jumlah</th></tr></thead>
+      <tbody>
+        ${grp("Pelayanan Surat")}
+        ${row2("Total Pengajuan", peng.total)}
+        ${row2("Selesai", peng.selesai)}
+        ${row2("Diproses", peng.diproses)}
+        ${row2("Dikembalikan", peng.dikembalikan)}
+        ${grp("Persuratan")}
+        ${row2("Surat Masuk", sr.masuk)}
+        ${row2("Didisposisi", sr.didisposisi)}
+        ${row2("Surat Keluar", sr.keluar)}
+        ${grp("Arsip & Inventaris")}
+        ${row2("Arsip Baru", d.arsip)}
+        ${row2("Aset Baru", d.aset)}
+      </tbody>
+    </table>
+    <div class="ttd">
+      <p>Macanan, ${tglCetak.value}</p>
+      <p>Mengetahui,</p>
+      <div class="ttd-space"></div>
+      <p class="nama">( ........................... )</p>
+    </div>`;
 
   const w = window.open("", "_blank", "width=1000,height=720");
   if (!w) {
@@ -540,6 +337,15 @@ onMounted(() => {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+/* ===== Ringkasan kunci ===== */
+.ringkas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 12px; }
+.ringkas-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 10px; text-align: center; transition: 0.25s; }
+.ringkas-card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(15, 23, 42, 0.07); }
+.ringkas-card .rk-num { display: block; font-size: 26px; font-weight: 800; color: #0f172a; line-height: 1; }
+.ringkas-card .rk-label { display: block; margin-top: 6px; font-size: 12px; color: #64748b; font-weight: 600; }
+.ringkas-table .col-jml { text-align: right; width: 130px; font-weight: 700; }
+.ringkas-table .grp td { background: #f1f5f9; font-weight: 800; color: #0f766e; }
 
 .rekap-body {
   font-family: "Plus Jakarta Sans", sans-serif;

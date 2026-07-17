@@ -92,6 +92,11 @@ const routes = [
         component: () => import("../view/admin/arsip/ArsipTambah.vue"),
       },
       {
+        path: "arsip/edit/:id",
+        name: "ArsipEdit",
+        component: () => import("../view/admin/arsip/ArsipTambah.vue"),
+      },
+      {
         path: "arsip/list",
         name: "ArsipList",
         component: () => import("../view/admin/arsip/ArsipList.vue"),

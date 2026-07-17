@@ -942,20 +942,23 @@ const fetchSurat = async () => {
 const cetak = () => window.print();
 const kembali = () => router.back();
 
-// Re-fetch saat id surat berubah (komponen dipakai-ulang di SPA → onMounted
-// tidak jalan lagi). Ini yang bikin dulu harus refresh manual biar muncul.
+// Pastikan token terpasang sebelum request apa pun.
+const tokenAwal = localStorage.getItem("token");
+if (tokenAwal)
+  axios.defaults.headers.common["Authorization"] = `Bearer ${tokenAwal}`;
+
+// Ambil data surat begitu komponen siap DAN setiap id berubah.
+// immediate:true → langsung jalan di klik pertama, tak perlu refresh manual.
 watch(
   () => route.params.id,
   (id) => {
     if (id) fetchSurat();
   },
+  { immediate: true },
 );
 
 onMounted(() => {
-  const token = localStorage.getItem("token");
-  if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   muatPengaturanKades();
-  fetchSurat();
 });
 </script>
 

@@ -111,13 +111,6 @@
                     <i class="fa-brands fa-whatsapp"></i>
                   </button>
                   <button
-                    @click="prosesAccSurat(row)"
-                    class="btn-action acc"
-                    title="ACC & Beri Nomor Surat"
-                  >
-                    <i class="fa-solid fa-check-double"></i>
-                  </button>
-                  <button
                     v-if="row.status === 'Selesai'"
                     @click="cetakSurat(row)"
                     class="btn-action cetak-surat"

@@ -236,7 +236,13 @@
                     : 'fa-solid fa-floppy-disk'
                 "
               ></i>
-              {{ isSaving ? "Menyimpan..." : "Simpan Arsip ke Database" }}
+              {{
+                isSaving
+                  ? "Menyimpan..."
+                  : isEdit
+                    ? "Perbarui Arsip"
+                    : "Simpan Arsip ke Database"
+              }}
             </button>
           </div>
         </form>
@@ -246,12 +252,18 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
+import { ref, watch, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 
 const router = useRouter();
+const route = useRoute();
 const isSaving = ref(false);
+
+// Mode edit (kalau ada :id di URL /admin/arsip/edit/:id)
+const isEdit = ref(false);
+const editId = ref(null);
+const sedangMuat = ref(false); // cegah watch menimpa tgl_retensi saat prefill
 
 // State Form Data
 const form = ref({
@@ -274,6 +286,7 @@ const uploadedFiles = ref([]);
 watch(
   () => form.value.durasi_retensi,
   (newVal) => {
+    if (sedangMuat.value) return; // jangan hitung ulang saat memuat data edit
     if (newVal && newVal !== "custom") {
       const today = new Date();
       // Tambah tahun sesuai durasi yang dipilih
@@ -308,8 +321,69 @@ const formatSize = (bytes) => {
   return (bytes / (1024 * 1024)).toFixed(2) + " MB";
 };
 
+// Muat data arsip untuk mode edit
+const muatArsip = async (id) => {
+  sedangMuat.value = true;
+  try {
+    const res = await axios.get(
+      `${import.meta.env.VITE_API_URL}/api/arsip/${id}`,
+    );
+    const d = res.data?.data || res.data;
+    if (!d || !d.id) throw new Error("not found");
+    form.value = {
+      nomor_arsip: d.nomor_arsip || "",
+      pencipta: d.pencipta || "Admin Desa",
+      judul: d.judul || "",
+      kategori: d.kategori || "",
+      lokasi_fisik: d.lokasi_fisik || "",
+      status: d.status || "Aktif",
+      durasi_retensi: d.durasi_retensi || "",
+      tgl_retensi: d.tgl_retensi ? String(d.tgl_retensi).split("T")[0] : "",
+      nasib_akhir: d.nasib_akhir || "Musnah",
+    };
+  } catch (e) {
+    console.error("Gagal memuat arsip:", e);
+    alert("Gagal memuat data arsip untuk diedit.");
+    router.push("/admin/arsip/list");
+  } finally {
+    // beri jeda agar watch tidak langsung menimpa tgl_retensi
+    setTimeout(() => (sedangMuat.value = false), 50);
+  }
+};
+
+onMounted(() => {
+  if (route.params.id) {
+    isEdit.value = true;
+    editId.value = route.params.id;
+    muatArsip(route.params.id);
+  }
+});
+
 // Eksekusi Simpan
 const handleSubmit = async () => {
+  // Mode EDIT → perbarui metadata (tanpa wajib unggah file baru)
+  if (isEdit.value) {
+    isSaving.value = true;
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/arsip/${editId.value}`,
+        { ...form.value },
+      );
+      alert("Data arsip berhasil diperbarui!");
+      router.push("/admin/arsip/list");
+    } catch (error) {
+      console.error("Gagal memperbarui arsip:", error);
+      alert(
+        error.response?.data?.message ||
+          "Terjadi kesalahan saat memperbarui arsip.",
+      );
+    } finally {
+      isSaving.value = false;
+    }
+    return;
+  }
+
+  // Mode TAMBAH → wajib unggah file
   if (uploadedFiles.value.length === 0) {
     alert("Wajib mengunggah minimal 1 dokumen arsip!");
     return;
