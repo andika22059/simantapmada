@@ -255,6 +255,7 @@
 import { ref, watch, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 const route = useRoute();
@@ -349,7 +350,7 @@ const muatArsip = async (id) => {
     };
   } catch (e) {
     console.error("Gagal memuat arsip:", e);
-    alert("Gagal memuat data arsip untuk diedit.");
+    Swal.fire({ icon: "error", title: "Gagal Memuat", text: "Data arsip tidak bisa dimuat untuk diedit.", confirmButtonColor: "#059669" });
     router.push("/admin/arsip/list");
   } finally {
     // beri jeda agar watch tidak langsung menimpa tgl_retensi
@@ -375,14 +376,11 @@ const handleSubmit = async () => {
         `${import.meta.env.VITE_API_URL}/api/arsip/${editId.value}`,
         { ...form.value },
       );
-      alert("Data arsip berhasil diperbarui!");
+      Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Arsip berhasil diperbarui", showConfirmButton: false, timer: 2200, timerProgressBar: true });
       router.push("/admin/arsip/list");
     } catch (error) {
       console.error("Gagal memperbarui arsip:", error);
-      alert(
-        error.response?.data?.message ||
-          "Terjadi kesalahan saat memperbarui arsip.",
-      );
+      Swal.fire({ icon: "error", title: "Gagal Memperbarui", text: error.response?.data?.message || "Terjadi kesalahan saat memperbarui arsip.", confirmButtonColor: "#059669" });
     } finally {
       isSaving.value = false;
     }
@@ -391,7 +389,7 @@ const handleSubmit = async () => {
 
   // Mode TAMBAH → wajib unggah file
   if (uploadedFiles.value.length === 0) {
-    alert("Wajib mengunggah minimal 1 dokumen arsip!");
+    Swal.fire({ icon: "warning", title: "Dokumen Belum Ada", text: "Wajib mengunggah minimal 1 dokumen arsip.", confirmButtonColor: "#059669" });
     return;
   }
 
@@ -415,14 +413,14 @@ const handleSubmit = async () => {
     await axios.post(`${import.meta.env.VITE_API_URL}/api/arsip`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    alert("Data Arsip Baru Berhasil Disimpan ke Database!");
+    Swal.fire({ toast: true, position: "top-end", icon: "success", title: "Arsip baru berhasil disimpan", showConfirmButton: false, timer: 2200, timerProgressBar: true });
     router.push("/admin/arsip/list");
   } catch (error) {
     console.error("Gagal menyimpan arsip:", error);
     const pesan =
       error.response?.data?.message ||
       "Terjadi kesalahan saat menyimpan arsip. Cek koneksi server/database.";
-    alert(pesan);
+    Swal.fire({ icon: "error", title: "Gagal Menyimpan", text: pesan, confirmButtonColor: "#059669" });
   } finally {
     isSaving.value = false;
   }

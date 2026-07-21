@@ -329,6 +329,16 @@ const STORAGE_BASE_URL = `${import.meta.env.VITE_API_URL}/storage/`;
 const searchQuery = ref("");
 const filterKategori = ref("");
 const filterStatus = ref("");
+const filterBulan = ref("");
+const filterTahun = ref("");
+const namaBulan = [
+  "Januari","Februari","Maret","April","Mei","Juni",
+  "Juli","Agustus","September","Oktober","November","Desember",
+];
+const daftarTahun = computed(() => {
+  const kini = new Date().getFullYear();
+  return [kini - 2, kini - 1, kini, kini + 1];
+});
 const isModalOpen = ref(false);
 const selectedArsip = ref({});
 const isLoading = ref(true);
@@ -495,9 +505,132 @@ const fileUrlPertama = computed(() => {
 const isImage = (p) => /\.(jpe?g|png|gif|webp|bmp)$/i.test(p || "");
 const isPdf = (p) => /\.pdf$/i.test(p || "");
 
+// Cetak daftar arsip — mengikuti filter aktif (bulan, tahun, kategori, status, pencarian)
+const cetakDaftar = () => {
+  if (filteredArsip.value.length === 0) {
+    Swal.fire({
+      icon: "info",
+      title: "Tidak Ada Data",
+      text: "Tidak ada arsip yang sesuai filter saat ini.",
+      confirmButtonColor: "#059669",
+    });
+    return;
+  }
+  const w = window.open("", "_blank", "width=1100,height=760");
+  if (!w) {
+    Swal.fire({
+      icon: "warning",
+      title: "Popup Diblokir",
+      text: "Izinkan popup untuk mencetak daftar arsip.",
+      confirmButtonColor: "#059669",
+    });
+    return;
+  }
+  const esc = (v) => (v ?? "-").toString().replace(/</g, "&lt;");
+  const tgl = (iso) =>
+    iso
+      ? new Date(iso).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })
+      : "-";
+
+  const periode =
+    (filterBulan.value ? namaBulan[filterBulan.value - 1] : "Semua Bulan") +
+    " " +
+    (filterTahun.value ? filterTahun.value : "Semua Tahun");
+
+  const info = [
+    `Periode: <b>${periode}</b>`,
+    filterKategori.value ? `Kategori: <b>${esc(filterKategori.value)}</b>` : "",
+    filterStatus.value ? `Status: <b>${esc(filterStatus.value)}</b>` : "",
+    `Total: <b>${filteredArsip.value.length} dokumen</b>`,
+  ]
+    .filter(Boolean)
+    .join(" &nbsp;|&nbsp; ");
+
+  const baris = filteredArsip.value
+    .map(
+      (r, i) => `<tr>
+        <td class="c">${i + 1}</td>
+        <td>${esc(r.nomor_arsip)}</td>
+        <td>${esc(r.judul)}</td>
+        <td>${esc(r.kategori)}</td>
+        <td>${esc(r.lokasi_fisik)}</td>
+        <td class="c">${esc(r.status)}</td>
+        <td class="c">${tgl(r.created_at)}</td>
+      </tr>`,
+    )
+    .join("");
+
+  const tglCetak = new Date().toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  w.document.write(`<!DOCTYPE html><html lang="id"><head><meta charset="utf-8" />
+    <title>Daftar Arsip Desa Macanan</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { font-family: "Times New Roman", serif; color: #000; margin: 20px 26px; }
+      .kop { text-align: center; line-height: 1.25; }
+      .kop h2 { margin: 0; font-size: 17pt; }
+      .kop h3 { margin: 6px 0 0; font-size: 13pt; text-decoration: underline; }
+      .kop p { margin: 2px 0 0; font-size: 10pt; }
+      .garis { border: none; border-top: 3px double #000; margin: 8px 0 12px; }
+      .info { font-size: 10pt; margin: 0 0 10px; }
+      table { width: 100%; border-collapse: collapse; font-size: 10pt; table-layout: fixed; }
+      th, td { border: 1px solid #000; padding: 5px 7px; vertical-align: top; word-wrap: break-word; }
+      thead th { background: #e5e7eb; text-align: center; }
+      td.c { text-align: center; }
+      .ttd { width: 280px; margin: 26px 0 0 auto; text-align: center; font-size: 10pt; }
+      .ttd-space { height: 64px; }
+      .ttd .nama { font-weight: bold; }
+      @page { size: A4 landscape; margin: 12mm; }
+    </style></head>
+    <body onload="window.focus(); window.print();">
+      <div class="kop">
+        <h2>PEMERINTAH DESA MACANAN</h2>
+        <p>Kecamatan Loceret, Kabupaten Nganjuk</p>
+        <h3>DAFTAR ARSIP DIGITAL DESA</h3>
+      </div>
+      <hr class="garis" />
+      <p class="info">${info}</p>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:5%">No</th>
+            <th style="width:15%">Nomor Arsip</th>
+            <th>Judul / Uraian</th>
+            <th style="width:13%">Kategori</th>
+            <th style="width:15%">Lokasi Fisik</th>
+            <th style="width:10%">Status</th>
+            <th style="width:12%">Tgl Input</th>
+          </tr>
+        </thead>
+        <tbody>${baris}</tbody>
+      </table>
+      <div class="ttd">
+        <p>Nganjuk, ${tglCetak}</p>
+        <p>Mengetahui,</p>
+        <div class="ttd-space"></div>
+        <p class="nama">( ........................... )</p>
+      </div>
+      <scr` + `ipt>window.onafterprint = function(){ window.close(); };</scr` + `ipt>
+    </body></html>`);
+  w.document.close();
+};
+
 const bukaFile = () => {
   if (!fileUrlPertama.value) {
-    alert("Tidak ada file digital untuk arsip ini.");
+    Swal.fire({
+      icon: "info",
+      title: "Tidak Ada File",
+      text: "Arsip ini belum memiliki file digital.",
+      confirmButtonColor: "#059669",
+    });
     return;
   }
   window.open(fileUrlPertama.value, "_blank");
@@ -505,13 +638,16 @@ const bukaFile = () => {
 
 const unduhFile = () => {
   if (!fileUrlPertama.value) {
-    alert("Tidak ada file digital untuk arsip ini.");
+    Swal.fire({
+      icon: "info",
+      title: "Tidak Ada File",
+      text: "Arsip ini belum memiliki file digital.",
+      confirmButtonColor: "#059669",
+    });
     return;
   }
-  const link = document.createElement("a");
-  link.href = fileUrlPertama.value;
-  link.download = "";
-  link.click();
+  // dibuka di tab baru; dari sana pengguna bisa simpan/unduh
+  window.open(fileUrlPertama.value, "_blank");
 };
 </script>
 
@@ -1365,5 +1501,28 @@ const unduhFile = () => {
 }
 .custom-table tbody tr:hover td {
   background: var(--primary-soft, #ecfdf5) !important;
+}
+
+/* ===== Tombol cetak daftar arsip ===== */
+.btn-outline-print {
+  background: #fff;
+  color: #0f172a;
+  border: 2px solid #e2e8f0;
+  padding: 13px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.25s;
+  font-family: inherit;
+}
+.btn-outline-print:hover {
+  border-color: #10b981;
+  color: #047857;
+  background: #ecfdf5;
+  transform: translateY(-2px);
 }
 </style>

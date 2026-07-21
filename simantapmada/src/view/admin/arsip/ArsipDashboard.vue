@@ -205,18 +205,18 @@
                 />
               </div>
               <span class="qr-label">LABEL FISIK DIGITAL</span>
-              <button class="btn-print-qr">
+              <button class="btn-print-qr" @click="cetakLabel">
                 <i class="fa-solid fa-print"></i> Cetak Label
               </button>
             </div>
           </div>
 
           <div class="modal-footer-actions">
-            <button class="btn-action-primary" @click="lihatFilePdf">
-              <i class="fa-solid fa-file-pdf"></i> Lihat File PDF
+            <button class="btn-action-view" @click="bukaFile">
+              <i class="fa-solid fa-file-pdf"></i> Buka File Digital
             </button>
-            <button class="btn-action-danger" @click="hapusArsip">
-              <i class="fa-solid fa-trash-can"></i> Hapus Arsip
+            <button class="btn-action-download" @click="unduhFile">
+              <i class="fa-solid fa-download"></i> Unduh File
             </button>
           </div>
         </div>
@@ -229,6 +229,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { statusRetensi } from "../../../assets/js/retensi.js";
 
 const router = useRouter();
@@ -300,33 +301,80 @@ const openModal = (row) => {
 
 const STORAGE_BASE_URL = `${import.meta.env.VITE_API_URL}/storage/`;
 
-const lihatFilePdf = () => {
+// URL file digital pertama milik arsip terpilih
+const fileUrlPertama = computed(() => {
   const files = selectedArsip.value?.files;
-  if (!files || files.length === 0) {
-    alert("Tidak ada file digital untuk arsip ini.");
+  if (!files || files.length === 0) return null;
+  return STORAGE_BASE_URL + files[0];
+});
+
+// Buka & unduh file arsip — keduanya di TAB BARU
+const bukaFile = () => {
+  if (!fileUrlPertama.value) {
+    Swal.fire({
+      icon: "info",
+      title: "Tidak Ada File",
+      text: "Arsip ini belum memiliki file digital.",
+      confirmButtonColor: "#059669",
+    });
     return;
   }
-  window.open(STORAGE_BASE_URL + files[0], "_blank");
+  window.open(fileUrlPertama.value, "_blank");
 };
 
-const hapusArsip = async () => {
-  if (!selectedArsip.value?.id) return;
-  const yakin = confirm(
-    `Hapus arsip "${selectedArsip.value.judul}"? Tindakan ini tidak bisa dibatalkan.`,
-  );
-  if (!yakin) return;
-
-  try {
-    await axios.delete(
-      `${import.meta.env.VITE_API_URL}/api/arsip/${selectedArsip.value.id}`,
-    );
-    showModal.value = false;
-    await fetchArsip(); // refresh data & statistik
-    alert("Arsip berhasil dihapus.");
-  } catch (error) {
-    console.error("Gagal menghapus arsip:", error);
-    alert("Gagal menghapus arsip. Cek koneksi server/database.");
+const unduhFile = () => {
+  if (!fileUrlPertama.value) {
+    Swal.fire({
+      icon: "info",
+      title: "Tidak Ada File",
+      text: "Arsip ini belum memiliki file digital.",
+      confirmButtonColor: "#059669",
+    });
+    return;
   }
+  window.open(fileUrlPertama.value, "_blank");
+};
+
+// Cetak label/stiker QR arsip (jendela baru, siap tempel di berkas fisik)
+const cetakLabel = () => {
+  const a = selectedArsip.value || {};
+  const w = window.open("", "_blank", "width=520,height=620");
+  if (!w) {
+    Swal.fire({
+      icon: "warning",
+      title: "Popup Diblokir",
+      text: "Izinkan popup untuk mencetak label QR.",
+      confirmButtonColor: "#059669",
+    });
+    return;
+  }
+  const esc = (s) => (s ?? "-").toString().replace(/</g, "&lt;");
+  w.document.write(`<!DOCTYPE html><html lang="id"><head><meta charset="utf-8" />
+    <title>Label QR ${esc(a.nomor_arsip)}</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { font-family: "Segoe UI", Arial, sans-serif; margin: 0; padding: 18px; color: #0f172a; }
+      .label { border: 2px solid #0f172a; border-radius: 14px; padding: 16px; text-align: center; width: 320px; margin: 0 auto; }
+      .label h2 { margin: 0 0 2px; font-size: 13px; }
+      .label .sub { font-size: 10px; color: #475569; margin-bottom: 10px; }
+      .label img { width: 200px; height: 200px; }
+      .label .nama { font-weight: 800; font-size: 13px; margin: 10px 0 2px; line-height: 1.3; }
+      .label .nomor { font-family: monospace; font-size: 13px; color: #047857; }
+      .label .ket { font-size: 9px; color: #64748b; margin-top: 8px; }
+      @page { margin: 8mm; }
+    </style></head>
+    <body onload="window.focus(); window.print();">
+      <div class="label">
+        <h2>PEMERINTAH DESA MACANAN</h2>
+        <div class="sub">Arsip / Dokumen Desa</div>
+        <img src="${qrUrl.value}" alt="QR" />
+        <div class="nama">${esc(a.judul)}</div>
+        <div class="nomor">${esc(a.nomor_arsip)}</div>
+        <div class="ket">Scan untuk verifikasi keaslian arsip</div>
+      </div>
+      <scr` + `ipt>window.onafterprint = function(){ window.close(); };</scr` + `ipt>
+    </body></html>`);
+  w.document.close();
 };
 </script>
 
@@ -1208,4 +1256,24 @@ const hapusArsip = async () => {
 .custom-table tbody tr {
   animation: arsRowIn 0.35s ease forwards;
 }
+
+/* ===== Tombol aksi footer modal detail arsip ===== */
+.btn-action-view,
+.btn-action-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+.btn-action-view { background: #059669; color: #fff; }
+.btn-action-view:hover { background: #047857; }
+.btn-action-download { background: #fff; color: #334155; border-color: #cbd5e1; }
+.btn-action-download:hover { background: #f1f5f9; border-color: #94a3b8; }
 </style>

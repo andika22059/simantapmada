@@ -260,6 +260,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -296,7 +297,7 @@ const editSurat = (row) => {
 const cetakLaporan = () => {
   const rows = filteredData.value || [];
   if (rows.length === 0) {
-    alert("Tidak ada data surat masuk untuk dicetak pada filter ini.");
+    Swal.fire({ icon: "info", title: "Tidak Ada Data", text: "Tidak ada surat masuk yang sesuai filter saat ini.", confirmButtonColor: "#059669" });
     return;
   }
   const esc = (s) => (s ?? "-").toString().replace(/</g, "&lt;");
@@ -348,7 +349,7 @@ const cetakLaporan = () => {
     </div>`;
   const w = window.open("", "_blank", "width=1000,height=720");
   if (!w) {
-    alert("Izinkan popup untuk mencetak laporan ini.");
+    Swal.fire({ icon: "warning", title: "Popup Diblokir", text: "Izinkan popup untuk mencetak laporan ini.", confirmButtonColor: "#059669" });
     return;
   }
   w.document.write(`<!DOCTYPE html><html lang="id"><head><meta charset="utf-8" />

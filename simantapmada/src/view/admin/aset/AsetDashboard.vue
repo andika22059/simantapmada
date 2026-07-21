@@ -243,15 +243,8 @@
             </div>
 
             <div class="action-bar">
-              <button id="btnCetakModal" class="btn-modal-action">
-                <i class="fa-solid fa-print"></i> Cetak Dokumen & Label KIB
-              </button>
-              <button
-                class="btn-modal-action"
-                style="background: #ef4444"
-                @click="hapusAset(selectedAset.id)"
-              >
-                <i class="fa-solid fa-trash-can"></i> Hapus Aset
+              <button class="btn-modal-action" @click="cetakLabel">
+                <i class="fa-solid fa-print"></i> Cetak Label QR
               </button>
             </div>
 
@@ -446,6 +439,48 @@ const qrUrl = computed(
       scanUrl.value,
     )}`,
 );
+
+// Cetak label/stiker QR aset (jendela baru, siap tempel di barang fisik)
+const cetakLabel = () => {
+  const a = selectedAset.value || {};
+  const w = window.open("", "_blank", "width=520,height=620");
+  if (!w) {
+    Swal.fire({
+      icon: "warning",
+      title: "Popup Diblokir",
+      text: "Izinkan popup untuk mencetak label QR.",
+      confirmButtonColor: "#059669",
+    });
+    return;
+  }
+  const esc = (s) => (s ?? "-").toString().replace(/</g, "&lt;");
+  w.document.write(`<!DOCTYPE html><html lang="id"><head><meta charset="utf-8" />
+    <title>Label QR ${esc(a.nomor_aset)}</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { font-family: "Segoe UI", Arial, sans-serif; margin: 0; padding: 18px; color: #0f172a; }
+      .label { border: 2px solid #0f172a; border-radius: 14px; padding: 16px; text-align: center; width: 320px; margin: 0 auto; }
+      .label h2 { margin: 0 0 2px; font-size: 13px; }
+      .label .sub { font-size: 10px; color: #475569; margin-bottom: 10px; }
+      .label img { width: 200px; height: 200px; }
+      .label .nama { font-weight: 800; font-size: 14px; margin: 10px 0 2px; }
+      .label .nomor { font-family: monospace; font-size: 13px; color: #1d4ed8; }
+      .label .ket { font-size: 9px; color: #64748b; margin-top: 8px; }
+      @page { margin: 8mm; }
+    </style></head>
+    <body onload="window.focus(); window.print();">
+      <div class="label">
+        <h2>PEMERINTAH DESA MACANAN</h2>
+        <div class="sub">Inventaris / Aset Desa</div>
+        <img src="${qrUrl.value}" alt="QR" />
+        <div class="nama">${esc(a.nama_aset)}</div>
+        <div class="nomor">${esc(a.nomor_aset)}</div>
+        <div class="ket">Scan untuk verifikasi dan detail aset</div>
+      </div>
+      <scr` + `ipt>window.onafterprint = function(){ window.close(); };</scr` + `ipt>
+    </body></html>`);
+  w.document.close();
+};
 
  
 const formatRupiahTampilan = (angka) => {
@@ -967,6 +1002,8 @@ const hapusAset = async (id) => {
   background: white;
   width: 850px;
   max-width: 95%;
+  /* dibatasi tinggi layar supaya modal tetap center & tidak terpotong */
+  max-height: 92vh;
   border-radius: 24px;
   overflow: hidden;
   display: flex;
@@ -1020,7 +1057,9 @@ const hapusAset = async (id) => {
   background: #f8fafc;
   display: flex;
   flex-direction: column;
-  max-height: 80vh;
+  /* isi yang menggulir, tinggi mengikuti sisa ruang modal */
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
 }
 .preview-top {
