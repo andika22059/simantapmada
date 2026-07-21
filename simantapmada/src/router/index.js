@@ -1,4 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
+import {
+  mulaiProgressRute,
+  selesaiProgressRute,
+} from "../assets/js/uploadProgress.js";
 
 const routes = [
   // --- AUTH ---
@@ -312,5 +316,13 @@ router.beforeEach((to, from, next) => {
 
   next();
 });
+
+// ===== Bar progres tipis saat berpindah halaman =====
+router.beforeEach((to, from, next) => {
+  if (to.path !== from.path) mulaiProgressRute();
+  next();
+});
+router.afterEach(() => selesaiProgressRute());
+router.onError(() => selesaiProgressRute());
 
 export default router;

@@ -61,7 +61,7 @@
                   <p>Tidak ada data pengajuan surat ditemukan.</p>
                 </td>
               </tr>
-              <tr v-for="(row, index) in paginatedData" :key="index">
+              <tr v-for="(row, index) in paginatedData" :key="index" :style="{ animationDelay: (index % 12) * 40 + 'ms' }">
                 <td>{{ (currentPage - 1) * itemsPerPage + index + 1 }}</td>
                 <td>
                   <div class="date-cell">
@@ -173,6 +173,9 @@
             </button>
           </div>
           <div class="modal-body scrollable">
+            <!-- Timeline perjalanan status pengajuan -->
+            <TimelineStatus :status="selectedRow.status" />
+
             <div class="detail-grid">
               <div class="detail-item">
                 <span class="detail-label">Nama Pemohon</span>
@@ -255,6 +258,7 @@ import { useRouter } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
 import CetakLaporan from "../CetakLaporan.vue";
+import TimelineStatus from "../../../components/TimelineStatus.vue";
 const router = useRouter();
 
 const showCetakModal = ref(false);
@@ -1272,5 +1276,20 @@ const bukaModalCetak = () => {
     font-size: 11px;
     padding: 0 6px;
   }
+}
+
+/* Baris tabel muncul bertahap (stagger) */
+tbody tr[style*="animation-delay"],
+tbody tr[style*="animationDelay"] {
+  opacity: 0;
+  animation: rowFadeIn 0.4s ease forwards;
+}
+@keyframes rowFadeIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  tbody tr[style*="animation-delay"],
+  tbody tr[style*="animationDelay"] { opacity: 1; animation: none; }
 }
 </style>

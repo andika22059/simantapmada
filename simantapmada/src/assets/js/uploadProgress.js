@@ -40,6 +40,26 @@ function selesai() {
   }, 300);
 }
 
+// ===== Progress bar saat berpindah halaman (indeterminate) =====
+// Dipakai router: mulai saat navigasi, selesai saat halaman siap.
+let timerRute = null;
+
+export function mulaiProgressRute() {
+  let p = 12;
+  setPersen(p);
+  clearInterval(timerRute);
+  timerRute = setInterval(() => {
+    p = Math.min(p + Math.random() * 12, 85); // merambat, tak pernah 100 sendiri
+    setPersen(p);
+  }, 120);
+}
+
+export function selesaiProgressRute() {
+  clearInterval(timerRute);
+  timerRute = null;
+  selesai();
+}
+
 export function installUploadProgress(axiosInstance) {
   const ax = axiosInstance;
   if (!ax || !ax.interceptors) return;

@@ -125,61 +125,191 @@
           <circle cx="625" cy="90" r="4" fill="#cbd5e1" opacity="0.5" />
         </g>
 
-        <!-- Gunung (siluet) -->
-        <path
-          d="M0 250 L 180 140 L 280 240 L 360 175 L 470 250 Z"
-          fill="#1f5f57"
-          opacity="0.5"
-        />
-        <path
-          d="M330 250 L 520 130 L 640 215 L 800 160 L 800 250 Z"
-          fill="#1a544c"
-          opacity="0.6"
-        />
+        <!-- 🏞️ PEMANDANGAN DESA (susunan yang disetujui, ikut fase waktu) -->
+        <g class="siluet-desa" :class="{ malam: tema.bintang > 0 }"
+           transform="translate(0,130) scale(0.5)">
 
-        <!-- Bukit sawah -->
-        <path
-          d="M0 270 Q 200 240 400 268 T 800 262 L 800 440 L 0 440 Z"
-          fill="#16463f"
-          opacity="0.7"
-        />
+          <path class="gn-jauh" d="M0 500 L300 190 L560 500 Z"/>
+          <path class="gn-jauh" d="M1010 500 L1360 200 L1600 500 Z"/>
+          <path class="gn-dekat" d="M340 500 L800 110 L1200 500 Z"/>
+          <path class="gn-puncak" d="M756 148 L800 110 L844 148 L800 178 Z"/>
 
-        <!-- Rumah joglo + masjid (siluet) -->
-        <g fill="#0d2e2a">
-          <path d="M0 320 L 800 320 L 800 440 L 0 440 Z" />
-          <!-- joglo kiri -->
-          <rect x="150" y="292" width="46" height="30" />
-          <path d="M138 292 L 173 268 L 208 292 Z" fill="#0d2e2a" />
-          <path
-            d="M132 292 L 173 274 L 214 292 Z"
-            fill="#0a2421"
-            opacity="0.8"
-          />
-          <!-- joglo kanan -->
-          <rect x="600" y="290" width="50" height="32" />
-          <path d="M587 290 L 625 264 L 663 290 Z" fill="#0d2e2a" />
-          <path
-            d="M581 290 L 625 270 L 669 290 Z"
-            fill="#0a2421"
-            opacity="0.8"
-          />
-          <!-- masjid (kubah) tengah -->
-          <rect x="396" y="248" width="8" height="74" />
-          <path d="M380 256 L 400 232 L 420 256 Z" fill="#0d2e2a" />
-          <path d="M384 274 L 400 254 L 416 274 Z" fill="#0d2e2a" />
-          <circle cx="400" cy="232" r="4" fill="#0d2e2a" />
-        </g>
+          <rect class="tanah" x="0" y="500" width="1600" height="120"/>
+          <path class="galur" d="M0 596 Q 400 586 800 596 T 1600 596"/>
 
-        <!-- Sawah terdepan + tanaman padi -->
-        <g fill="#08211e">
-          <path d="M0 370 L 800 370 L 800 440 L 0 440 Z" />
-          <g opacity="0.55" stroke="#08211e" stroke-width="2">
-            <line x1="50" y1="392" x2="50" y2="372" />
-            <line x1="95" y1="394" x2="95" y2="374" />
-            <line x1="140" y1="392" x2="140" y2="372" />
-            <line x1="660" y1="393" x2="660" y2="373" />
-            <line x1="705" y1="392" x2="705" y2="372" />
-            <line x1="750" y1="394" x2="750" y2="374" />
+          <g transform="translate(392,268.4) scale(0.4)">
+            
+  <polygon class="utama" points="95,456 440,296 760,296 1105,456"/>
+  <rect class="utama" x="425" y="288" width="350" height="14" rx="7"/>
+  <rect class="utama" x="160" y="456" width="880" height="240"/>
+  <rect class="putih" x="305" y="452" width="590" height="14"/>
+  <rect class="utama" x="305" y="466" width="590" height="44"/>
+  <rect class="dalam" x="330" y="510" width="540" height="186"/>
+  <rect class="putih" x="392" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="428" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="746" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="782" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="556" y="548" width="88" height="148" rx="4"/>
+  <rect class="dalam" x="597" y="548" width="6" height="148"/>
+  <rect class="utama" x="344" y="510" width="28" height="186"/>
+  <rect class="utama" x="470" y="510" width="28" height="186"/>
+  <rect class="utama" x="702" y="510" width="28" height="186"/>
+  <rect class="utama" x="828" y="510" width="28" height="186"/>
+  <rect class="putih" x="200" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="240" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="934" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="974" y="556" width="26" height="104" rx="3"/>
+  <rect class="utama" x="312" y="696" width="576" height="16"/>
+  <rect class="utama" x="284" y="712" width="632" height="16"/>
+  <rect class="utama" x="256" y="728" width="688" height="16"/>
+          </g>
+          <g transform="translate(898,342.2) scale(0.3)">
+            
+  <polygon class="utama" points="105,462 385,366 550,244 650,244 815,366 1095,462"/>
+  <rect class="utama" x="535" y="236" width="130" height="14" rx="7"/>
+  <rect class="putih" x="175" y="462" width="850" height="12"/>
+  <rect class="utama" x="175" y="474" width="850" height="42"/>
+  <rect class="dalam" x="192" y="516" width="816" height="174"/>
+  <rect class="utama" x="205" y="516" width="30" height="174"/>
+  <rect class="utama" x="357" y="516" width="30" height="174"/>
+  <rect class="utama" x="509" y="516" width="30" height="174"/>
+  <rect class="utama" x="661" y="516" width="30" height="174"/>
+  <rect class="utama" x="813" y="516" width="30" height="174"/>
+  <rect class="utama" x="965" y="516" width="30" height="174"/>
+  <rect class="utama" x="199" y="652" width="42" height="38"/>
+  <rect class="utama" x="351" y="652" width="42" height="38"/>
+  <rect class="utama" x="503" y="652" width="42" height="38"/>
+  <rect class="utama" x="655" y="652" width="42" height="38"/>
+  <rect class="utama" x="807" y="652" width="42" height="38"/>
+  <rect class="utama" x="959" y="652" width="42" height="38"/>
+  <rect class="utama" x="172" y="690" width="856" height="20"/>
+  <rect class="utama" x="148" y="710" width="904" height="18"/>
+  <rect class="utama" x="124" y="728" width="952" height="18"/>
+          </g>
+          <g v-if="tema.bintang > 0" transform="translate(805,320.6) scale(0.26)">
+            <defs>
+  <clipPath id="klipDM"><path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z"/></clipPath>
+  <clipPath id="klipBM"><path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z"/></clipPath>
+  <filter id="glowBesarM" x="-120%" y="-30%" width="340%" height="160%"><feGaussianBlur stdDeviation="26"/></filter>
+  <filter id="glowKecilM" x="-80%" y="-20%" width="260%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#FFE9A8" opacity="0.9" filter="url(#glowBesarM)"/>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#FFF6D8" opacity="0.9" filter="url(#glowKecilM)"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#FFE9A8" opacity="0.9" filter="url(#glowBesarM)"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#FFF6D8" opacity="0.9" filter="url(#glowKecilM)"/>
+<rect fill="#1E2A3A" x="272" y="810" width="56" height="100"/>
+<rect fill="#1E2A3A" x="212" y="906" width="176" height="38" rx="6"/>
+<path d="M 276,56 L 326,56 Q 346,56 347,78 Q 379,438 347,798 Q 346,820 326,820 L 276,820 Q 256,820 254,798 Q 222,438 254,78 Q 256,56 276,56 Z" fill="#1E2A3A"/>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#FFFDF2"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#FFFDF2"/>
+<g clip-path="url(#klipDM)">
+  <rect x="243.5" y="282" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="242.3" y="332" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="241.6" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.95"/>
+  <rect x="241.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.95"/>
+  <rect x="242.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="243.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.95"/>
+  <rect x="244.6" y="582" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="246.7" y="632" width="24" height="44" fill="#27408B" opacity="0.95"/>
+</g>
+<g clip-path="url(#klipBM)">
+  <rect x="335.5" y="282" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="336.7" y="332" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="337.4" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.95"/>
+  <rect x="337.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.95"/>
+  <rect x="337.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="336.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.95"/>
+  <rect x="334.4" y="582" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="332.3" y="632" width="24" height="44" fill="#27408B" opacity="0.95"/>
+</g>
+<rect fill="#1E2A3A" x="239.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="314.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="235.7" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="318.8" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="242.3" y="676" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="311.5" y="676" width="52" height="16" rx="6"/>
+          </g>
+          <g v-else transform="translate(805,320.6) scale(0.26)">
+            <defs>
+  <clipPath id="klipDS"><path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z"/></clipPath>
+  <clipPath id="klipBS"><path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z"/></clipPath>
+</defs>
+<rect fill="#1E2A3A" x="272" y="810" width="56" height="100"/>
+<rect fill="#1E2A3A" x="212" y="906" width="176" height="38" rx="6"/>
+<path d="M 276,56 L 326,56 Q 346,56 347,78 Q 379,438 347,798 Q 346,820 326,820 L 276,820 Q 256,820 254,798 Q 222,438 254,78 Q 256,56 276,56 Z" fill="#1E2A3A"/>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#DDE3EA"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#DDE3EA"/>
+<g clip-path="url(#klipDS)">
+  <rect x="243.5" y="282" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="242.3" y="332" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="241.6" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.40"/>
+  <rect x="241.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.40"/>
+  <rect x="242.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.40"/>
+  <rect x="243.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.40"/>
+  <rect x="244.6" y="582" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="246.7" y="632" width="24" height="44" fill="#27408B" opacity="0.40"/>
+</g>
+<g clip-path="url(#klipBS)">
+  <rect x="335.5" y="282" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="336.7" y="332" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="337.4" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.40"/>
+  <rect x="337.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.40"/>
+  <rect x="337.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.40"/>
+  <rect x="336.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.40"/>
+  <rect x="334.4" y="582" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="332.3" y="632" width="24" height="44" fill="#27408B" opacity="0.40"/>
+</g>
+<rect fill="#1E2A3A" x="239.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="314.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="235.7" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="318.8" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="242.3" y="676" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="311.5" y="676" width="52" height="16" rx="6"/>
+          </g>
+
+          <g transform="translate(348,566)">
+            <rect x="-3" y="-210" width="6" height="210" class="tiang"/>
+            <circle cx="0" cy="-214" r="6" class="tiang"/>
+            <g class="bendera-desa">
+              <rect x="4" y="-206" width="76" height="24" fill="#c1272d"/>
+              <rect x="4" y="-182" width="76" height="24" fill="#f8fafc"/>
+            </g>
+          </g>
+
+          <g transform="translate(105,574) scale(1.85)"><g class="pohon-desa">
+              <rect x="-8" y="-58" width="16" height="62" class="btg"/>
+              <circle cx="0" cy="-80" r="44" class="dn1"/>
+              <circle cx="-32" cy="-58" r="32" class="dn2"/>
+              <circle cx="32" cy="-58" r="32" class="dn2"/>
+              <circle cx="0" cy="-108" r="28" class="dn3"/></g></g>
+          <g transform="translate(262,574) scale(1.45)"><g class="pohon-desa">
+              <rect x="-8" y="-58" width="16" height="62" class="btg"/>
+              <circle cx="0" cy="-80" r="44" class="dn1"/>
+              <circle cx="-32" cy="-58" r="32" class="dn2"/>
+              <circle cx="32" cy="-58" r="32" class="dn2"/>
+              <circle cx="0" cy="-108" r="28" class="dn3"/></g></g>
+          <g transform="translate(1318,574) scale(1.8)"><g class="pohon-desa">
+              <rect x="-8" y="-58" width="16" height="62" class="btg"/>
+              <circle cx="0" cy="-80" r="44" class="dn1"/>
+              <circle cx="-32" cy="-58" r="32" class="dn2"/>
+              <circle cx="32" cy="-58" r="32" class="dn2"/>
+              <circle cx="0" cy="-108" r="28" class="dn3"/></g></g>
+          <g transform="translate(1487,574) scale(1.5)"><g class="pohon-desa">
+              <rect x="-8" y="-58" width="16" height="62" class="btg"/>
+              <circle cx="0" cy="-80" r="44" class="dn1"/>
+              <circle cx="-32" cy="-58" r="32" class="dn2"/>
+              <circle cx="32" cy="-58" r="32" class="dn2"/>
+              <circle cx="0" cy="-108" r="28" class="dn3"/></g></g>
+
+          <g class="kunang-grup" :style="{ opacity: tema.bintang }">
+            <circle class="kunang" style="animation-delay:0s" cx="300" cy="470" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:1.3s" cx="420" cy="510" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:2.6s" cx="560" cy="440" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:3.9000000000000004s" cx="1080" cy="460" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:5.2s" cx="1220" cy="500" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:6.5s" cx="1340" cy="450" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:7.800000000000001s" cx="700" cy="520" r="5" fill="#FFE9A8"/>
+            <circle class="kunang" style="animation-delay:9.1s" cx="980" cy="430" r="5" fill="#FFE9A8"/>
           </g>
         </g>
 
@@ -342,16 +472,44 @@ const presetWaktu = {
   },
 };
 
-// Tentukan waktu sekarang dari jam perangkat
-const tentukanWaktu = () => {
-  const jam = new Date().getHours();
+// Ubah jam (0-23) menjadi fase tema
+const faseDariJam = (jam) => {
   if (jam >= 5 && jam < 11) return "pagi";
   if (jam >= 11 && jam < 15) return "siang";
   if (jam >= 15 && jam < 18) return "sore";
   return "malam";
 };
 
+// Apakah perangkat pengguna disetel mode gelap?
+const perangkatModeGelap = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+// Tentukan fase awal dari jam perangkat (dipakai sementara sebelum
+// waktu server tiba, supaya tampilan tidak berkedip).
+const tentukanWaktu = () => {
+  if (perangkatModeGelap()) return "malam";
+  return faseDariJam(new Date().getHours());
+};
+
 const tema = ref(presetWaktu[tentukanWaktu()]);
+
+// Ambil jam dari SERVER (WIB) supaya tidak bisa dicurangi dengan
+// mengubah jam perangkat. Kalau gagal, tetap pakai jam perangkat.
+const selaraskanWaktuServer = async () => {
+  // Preferensi mode gelap pengguna diutamakan.
+  if (perangkatModeGelap()) return;
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/waktu`);
+    const jam = res.data?.jam;
+    if (typeof jam === "number" && jam >= 0 && jam <= 23) {
+      tema.value = presetWaktu[faseDariJam(jam)];
+    }
+  } catch (e) {
+    /* biarkan pakai jam perangkat */
+  }
+};
 const sapaan = computed(() => tema.value.sapa);
 
 const alertData = computed(() => {
@@ -385,6 +543,7 @@ const skipLoading = () => (isLoading.value = false);
 
 onMounted(() => {
   setTimeout(() => (isLoading.value = false), 3000);
+  selaraskanWaktuServer();
 });
 
 const handleLogin = async () => {
@@ -487,5 +646,52 @@ const handleLogin = async () => {
 /* SweetAlert harus di atas .login-container (z-index 9999) & loading-overlay (99999) */
 .swal2-container {
   z-index: 999999 !important;
+}
+
+/* ===== PEMANDANGAN DESA (gunung, tanah, bangunan, pohon) ===== */
+.siluet-desa .gn-jauh { fill: #8fb4d6; }
+.siluet-desa .gn-dekat { fill: #a4c3e0; }
+.siluet-desa .gn-puncak { fill: #cfe0f0; }
+.siluet-desa .tanah { fill: #cfe3c6; }
+.siluet-desa .galur { stroke: #c3d9b8; stroke-width: 5; fill: none; }
+.siluet-desa .utama { fill: #1e2a3a; }
+.siluet-desa .dalam { fill: #46586e; }
+.siluet-desa .putih { fill: #ffffff; }
+.siluet-desa .btg { fill: #6b4f3a; }
+.siluet-desa .dn1 { fill: #3f7d4e; }
+.siluet-desa .dn2 { fill: #46875a; }
+.siluet-desa .dn3 { fill: #4f9160; }
+.siluet-desa .tiang { fill: #334155; }
+
+/* malam: langit gelap, lampu menyala */
+.siluet-desa.malam .gn-jauh { fill: #22304a; }
+.siluet-desa.malam .gn-dekat { fill: #2b3a58; }
+.siluet-desa.malam .gn-puncak { fill: #3a4a6b; }
+.siluet-desa.malam .tanah { fill: #1b2942; }
+.siluet-desa.malam .galur { stroke: #22314c; }
+.siluet-desa.malam .utama { fill: #0e1726; }
+.siluet-desa.malam .dalam { fill: #263449; }
+.siluet-desa.malam .putih { fill: #ffd98a; animation: napasLampu 5s ease-in-out infinite; }
+.siluet-desa.malam .dn1,
+.siluet-desa.malam .dn2,
+.siluet-desa.malam .dn3 { fill: #1b2f2a; }
+.siluet-desa.malam .btg { fill: #1d2436; }
+.siluet-desa.malam .tiang { fill: #16203a; }
+
+.pohon-desa { transform-box: fill-box; transform-origin: bottom center; animation: tiupAngin 6s ease-in-out infinite; }
+.bendera-desa { transform-box: fill-box; transform-origin: left center; animation: kibarBendera 2.6s ease-in-out infinite; }
+.kunang { animation: kunangTerbang 6s ease-in-out infinite; }
+
+@keyframes tiupAngin { 0%,100% { transform: rotate(-1.2deg); } 50% { transform: rotate(1.2deg); } }
+@keyframes kibarBendera { 0%,100% { transform: skewY(0deg) scaleY(1); } 50% { transform: skewY(-5deg) scaleY(0.93); } }
+@keyframes napasLampu { 0%,100% { opacity: 1; } 50% { opacity: 0.72; } }
+@keyframes kunangTerbang {
+  0%,100% { opacity: 0; transform: translate(0,0); }
+  25% { opacity: 1; }
+  55% { opacity: 0.85; transform: translate(22px,-34px); }
+  85% { opacity: 0.15; transform: translate(40px,-14px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pohon-desa, .bendera-desa, .kunang, .siluet-desa.malam .putih { animation: none; }
 }
 </style>

@@ -296,8 +296,14 @@ watch(
         today.getDate(),
       );
 
-      // Format ke string YYYY-MM-DD agar masuk ke input type="date"
-      form.value.tgl_retensi = futureDate.toISOString().split("T")[0];
+      // Format YYYY-MM-DD memakai tanggal LOKAL (WIB).
+      // Jangan pakai toISOString() — itu mengubah ke UTC sehingga
+      // tengah malam WIB mundur ke hari sebelumnya (meleset 1 hari).
+      const pad = (n) => String(n).padStart(2, "0");
+      form.value.tgl_retensi =
+        `${futureDate.getFullYear()}-` +
+        `${pad(futureDate.getMonth() + 1)}-` +
+        `${pad(futureDate.getDate())}`;
     } else {
       // Kosongkan jika pilih "Custom/Manual"
       form.value.tgl_retensi = "";

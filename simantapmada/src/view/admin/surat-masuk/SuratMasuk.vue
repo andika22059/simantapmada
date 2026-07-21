@@ -118,7 +118,7 @@
                   Tidak ada data surat yang sesuai filter.
                 </td>
               </tr>
-              <tr v-for="(row, index) in paginatedData" :key="row.id || index">
+              <tr v-for="(row, index) in paginatedData" :key="row.id || index" :style="{ animationDelay: (index % 12) * 40 + 'ms' }">
                 <td>{{ (currentPage - 1) * itemsPerPage + index + 1 }}</td>
                 <td class="font-semibold">
                   {{ formatDate(row.tanggal_surat) }}
@@ -1412,5 +1412,20 @@ const badgeStatusClass = computed(() => {
     font-size: 11px !important;
     padding: 0 6px !important;
   }
+}
+
+/* Baris tabel muncul bertahap (stagger) */
+tbody tr[style*="animation-delay"],
+tbody tr[style*="animationDelay"] {
+  opacity: 0;
+  animation: rowFadeIn 0.4s ease forwards;
+}
+@keyframes rowFadeIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  tbody tr[style*="animation-delay"],
+  tbody tr[style*="animationDelay"] { opacity: 1; animation: none; }
 }
 </style>

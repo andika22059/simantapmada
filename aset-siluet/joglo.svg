@@ -1,0 +1,44 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Siluet tampak depan Pendopo Desa Macanan -->
+  <defs>
+    <style>
+      .utama { fill: #1E2A3A; }
+      .dalam { fill: #46586E; }
+      .putih { fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  <!-- ===== ATAP JOGLO (dua kemiringan: landai bawah, curam atas) ===== -->
+  <polygon class="utama" points="105,462 385,366 550,244 650,244 815,366 1095,462"/>
+  <!-- bubungan puncak -->
+  <rect class="utama" x="535" y="236" width="130" height="14" rx="7"/>
+
+  <!-- ===== LISPLANG ===== -->
+  <!-- celah putih pemisah -->
+  <rect class="putih" x="175" y="462" width="850" height="12"/>
+  <rect class="utama" x="175" y="474" width="850" height="42"/>
+
+  <!-- ===== RUANG TERBUKA PENDOPO (tone terang) ===== -->
+  <rect class="dalam" x="192" y="516" width="816" height="174"/>
+
+  <!-- ===== KOLOM (6 buah) ===== -->
+  <rect class="utama" x="205" y="516" width="30" height="174"/>
+  <rect class="utama" x="357" y="516" width="30" height="174"/>
+  <rect class="utama" x="509" y="516" width="30" height="174"/>
+  <rect class="utama" x="661" y="516" width="30" height="174"/>
+  <rect class="utama" x="813" y="516" width="30" height="174"/>
+  <rect class="utama" x="965" y="516" width="30" height="174"/>
+
+  <!-- umpak / kaki kolom (sedikit melebar di bawah) -->
+  <rect class="utama" x="199" y="652" width="42" height="38"/>
+  <rect class="utama" x="351" y="652" width="42" height="38"/>
+  <rect class="utama" x="503" y="652" width="42" height="38"/>
+  <rect class="utama" x="655" y="652" width="42" height="38"/>
+  <rect class="utama" x="807" y="652" width="42" height="38"/>
+  <rect class="utama" x="959" y="652" width="42" height="38"/>
+
+  <!-- ===== LANTAI PANGGUNG & UNDAKAN ===== -->
+  <rect class="utama" x="172" y="690" width="856" height="20"/>
+  <rect class="utama" x="148" y="710" width="904" height="18"/>
+  <rect class="utama" x="124" y="728" width="952" height="18"/>
+</svg>

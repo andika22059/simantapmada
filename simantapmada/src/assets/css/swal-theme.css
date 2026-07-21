@@ -103,3 +103,50 @@
   border-radius: 14px !important;
   box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.25) !important;
 }
+
+/* =====================================================================
+   CENTANG SUKSES BERANIMASI (garis centang "digambar")
+   Berlaku otomatis di semua popup sukses SweetAlert.
+   ===================================================================== */
+.swal2-icon.swal2-success .swal2-success-ring {
+  animation: swalRingIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.swal2-icon.swal2-success [class^="swal2-success-line"] {
+  transform-origin: left center;
+  animation: swalGarisCentang 0.35s ease-out both;
+}
+.swal2-icon.swal2-success .swal2-success-line-tip {
+  animation-delay: 0.28s;
+}
+.swal2-icon.swal2-success .swal2-success-line-long {
+  animation-delay: 0.45s;
+}
+
+@keyframes swalRingIn {
+  from {
+    transform: scale(0.6) rotate(-25deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes swalGarisCentang {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Hormati preferensi "kurangi gerakan" */
+@media (prefers-reduced-motion: reduce) {
+  .swal2-icon.swal2-success .swal2-success-ring,
+  .swal2-icon.swal2-success [class^="swal2-success-line"] {
+    animation: none !important;
+  }
+}

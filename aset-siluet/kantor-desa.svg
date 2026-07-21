@@ -1,0 +1,57 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Siluet tampak depan Kantor Desa Macanan -->
+  <!-- Warna utama -->
+  <defs>
+    <style>
+      .utama { fill: #1E2A3A; }
+      .dalam { fill: #46586E; }
+      .putih { fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  <!-- ===== ATAP UTAMA (limasan) ===== -->
+  <polygon class="utama" points="95,456 440,296 760,296 1105,456"/>
+  <!-- garis bubungan tebal -->
+  <rect class="utama" x="425" y="288" width="350" height="14" rx="7"/>
+
+  <!-- ===== DINDING UTAMA ===== -->
+  <rect class="utama" x="160" y="456" width="880" height="240"/>
+
+  <!-- celah putih pemisah lisplang teras -->
+  <rect class="putih" x="305" y="452" width="590" height="14"/>
+
+  <!-- ===== LISPLANG / ATAP TERAS ===== -->
+  <rect class="utama" x="305" y="466" width="590" height="44"/>
+
+  <!-- ===== AREA TERAS (dinding menjorok, tone lebih terang) ===== -->
+  <rect class="dalam" x="330" y="510" width="540" height="186"/>
+
+  <!-- ===== JENDELA DI DALAM TERAS (kiri pintu) ===== -->
+  <rect class="putih" x="392" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="428" y="566" width="26" height="100" rx="3"/>
+  <!-- (kanan pintu) -->
+  <rect class="putih" x="746" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="782" y="566" width="26" height="100" rx="3"/>
+
+  <!-- ===== PINTU GANDA ===== -->
+  <rect class="putih" x="556" y="548" width="88" height="148" rx="4"/>
+  <rect class="dalam" x="597" y="548" width="6" height="148"/>
+
+  <!-- ===== KOLOM TERAS (4 buah) ===== -->
+  <rect class="utama" x="344" y="510" width="28" height="186"/>
+  <rect class="utama" x="470" y="510" width="28" height="186"/>
+  <rect class="utama" x="702" y="510" width="28" height="186"/>
+  <rect class="utama" x="828" y="510" width="28" height="186"/>
+
+  <!-- ===== JENDELA DINDING LUAR (kiri) ===== -->
+  <rect class="putih" x="200" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="240" y="556" width="26" height="104" rx="3"/>
+  <!-- (kanan) -->
+  <rect class="putih" x="934" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="974" y="556" width="26" height="104" rx="3"/>
+
+  <!-- ===== TANGGA / UNDAKAN ===== -->
+  <rect class="utama" x="312" y="696" width="576" height="16"/>
+  <rect class="utama" x="284" y="712" width="632" height="16"/>
+  <rect class="utama" x="256" y="728" width="688" height="16"/>
+</svg>

@@ -18,6 +18,21 @@ use App\Http\Controllers\Api\PengaturanController;
 Route::post('/login', [AuthController::class, 'login']);
 
 // =====================================================
+// Waktu server (WIB) — dipakai halaman login untuk menentukan
+// tema pagi/siang/sore/malam. Diambil dari server supaya tidak
+// bisa dicurangi dengan mengubah jam perangkat.
+// Timezone aplikasi masih UTC, jadi dikonversi eksplisit ke WIB.
+// =====================================================
+Route::get('/waktu', function () {
+    $sekarang = now()->setTimezone('Asia/Jakarta');
+
+    return response()->json([
+        'waktu' => $sekarang->toIso8601String(),
+        'jam'   => (int) $sekarang->format('G'), // 0-23
+    ]);
+});
+
+// =====================================================
 // PUBLIK (TANPA LOGIN) — untuk scan QR oleh warga.
 // Hanya mengembalikan data ringkas & aman (tanpa file/dokumen,
 // nilai aset, lokasi simpan fisik, atau catatan internal).

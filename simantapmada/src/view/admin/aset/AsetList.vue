@@ -95,7 +95,7 @@
                 </td>
               </tr>
 
-              <tr v-for="(row, index) in pagedAset" :key="row.id">
+              <tr v-for="(row, index) in pagedAset" :key="row.id" :style="{ animationDelay: (index % 12) * 40 + 'ms' }">
                 <td class="col-no">
                   {{ (currentPage - 1) * perPage + index + 1 }}
                 </td>

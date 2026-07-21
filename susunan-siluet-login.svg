@@ -1,0 +1,382 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1270" width="1600" height="1270">
+<title>Susunan siluet beranimasi</title>
+<defs><style>
+.utama{fill:#1E2A3A}.dalam{fill:#46586E}.putih{fill:#FFFFFF}
+.malam .utama{fill:#0E1726}.malam .dalam{fill:#263449}
+.malam .putih{fill:#FFD98A;animation:napas 5s ease-in-out infinite}
+.pohon{transform-box:fill-box;transform-origin:bottom center;animation:tiup 6s ease-in-out infinite}
+.bendera{transform-box:fill-box;transform-origin:left center;animation:kibar 2.6s ease-in-out infinite}
+.burung-jalan{animation:terbang 26s linear infinite}
+.awan-jalan{animation:hanyut 70s linear infinite}
+.kunang{animation:kunang 6s ease-in-out infinite}
+.bintang{animation:kedip 3.2s ease-in-out infinite}
+@keyframes tiup{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.2deg)}}
+@keyframes kibar{0%,100%{transform:skewY(0deg) scaleY(1)}50%{transform:skewY(-5deg) scaleY(.93)}}
+@keyframes terbang{from{transform:translateX(-200px)}to{transform:translateX(1800px)}}
+@keyframes hanyut{from{transform:translateX(0)}to{transform:translateX(1800px)}}
+@keyframes kunang{0%,100%{opacity:0;transform:translate(0,0)}25%{opacity:1}55%{opacity:.85;transform:translate(22px,-34px)}85%{opacity:.15;transform:translate(40px,-14px)}}
+@keyframes kedip{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes napas{0%,100%{opacity:1}50%{opacity:.7}}
+@media (prefers-reduced-motion:reduce){.pohon,.bendera,.burung-jalan,.awan-jalan,.kunang,.bintang,.malam .putih{animation:none}}</style></defs>
+
+<g transform="translate(0,0)">
+ <rect x="0" y="0" width="1600" height="620" fill="#bfdbfe" rx="10"/>
+ <g class="awan-jalan"><g transform="translate(-200,110) scale(1)" fill="#ffffff" opacity="0.85">
+<ellipse cx="0" cy="0" rx="60" ry="26"/><ellipse cx="46" cy="8" rx="44" ry="20"/><ellipse cx="-44" cy="8" rx="40" ry="18"/></g><g transform="translate(500,70) scale(0.75)" fill="#ffffff" opacity="0.85">
+<ellipse cx="0" cy="0" rx="60" ry="26"/><ellipse cx="46" cy="8" rx="44" ry="20"/><ellipse cx="-44" cy="8" rx="40" ry="18"/></g><g transform="translate(1150,130) scale(0.9)" fill="#ffffff" opacity="0.85">
+<ellipse cx="0" cy="0" rx="60" ry="26"/><ellipse cx="46" cy="8" rx="44" ry="20"/><ellipse cx="-44" cy="8" rx="40" ry="18"/></g></g>
+
+ <path d="M0 500 L300 190 L560 500 Z" fill="#8fb4d6"/>
+ <path d="M1010 500 L1360 200 L1600 500 Z" fill="#8fb4d6"/>
+ <path d="M340 500 L800 110 L1200 500 Z" fill="#a4c3e0"/>
+ <path d="M756 148 L800 110 L844 148 L800 178 Z" fill="#cfe0f0"/>
+
+ <g class="burung-jalan"><g transform="translate(0,190) scale(1)">
+<path d="M0 0 Q 9 -9 18 0 Q 27 -9 36 0" stroke="#1E2A3A" stroke-width="3" fill="none" stroke-linecap="round"/></g><g transform="translate(70,160) scale(0.8)">
+<path d="M0 0 Q 9 -9 18 0 Q 27 -9 36 0" stroke="#1E2A3A" stroke-width="3" fill="none" stroke-linecap="round"/></g><g transform="translate(130,205) scale(0.65)">
+<path d="M0 0 Q 9 -9 18 0 Q 27 -9 36 0" stroke="#1E2A3A" stroke-width="3" fill="none" stroke-linecap="round"/></g></g>
+
+ <rect x="0" y="500" width="1600" height="120" fill="#cfe3c6"/>
+ <path d="M0 596 Q 400 586 800 596 T 1600 596" stroke="#c3d9b8" stroke-width="5" fill="none"/>
+
+ <g class="siang">
+  <g transform="translate(392,268.4) scale(0.4)">
+  <!-- Siluet tampak depan Kantor Desa Macanan -->
+  <!-- Warna utama -->
+  
+
+  <!-- ===== ATAP UTAMA (limasan) ===== -->
+  <polygon class="utama" points="95,456 440,296 760,296 1105,456"/>
+  <!-- garis bubungan tebal -->
+  <rect class="utama" x="425" y="288" width="350" height="14" rx="7"/>
+
+  <!-- ===== DINDING UTAMA ===== -->
+  <rect class="utama" x="160" y="456" width="880" height="240"/>
+
+  <!-- celah putih pemisah lisplang teras -->
+  <rect class="putih" x="305" y="452" width="590" height="14"/>
+
+  <!-- ===== LISPLANG / ATAP TERAS ===== -->
+  <rect class="utama" x="305" y="466" width="590" height="44"/>
+
+  <!-- ===== AREA TERAS (dinding menjorok, tone lebih terang) ===== -->
+  <rect class="dalam" x="330" y="510" width="540" height="186"/>
+
+  <!-- ===== JENDELA DI DALAM TERAS (kiri pintu) ===== -->
+  <rect class="putih" x="392" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="428" y="566" width="26" height="100" rx="3"/>
+  <!-- (kanan pintu) -->
+  <rect class="putih" x="746" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="782" y="566" width="26" height="100" rx="3"/>
+
+  <!-- ===== PINTU GANDA ===== -->
+  <rect class="putih" x="556" y="548" width="88" height="148" rx="4"/>
+  <rect class="dalam" x="597" y="548" width="6" height="148"/>
+
+  <!-- ===== KOLOM TERAS (4 buah) ===== -->
+  <rect class="utama" x="344" y="510" width="28" height="186"/>
+  <rect class="utama" x="470" y="510" width="28" height="186"/>
+  <rect class="utama" x="702" y="510" width="28" height="186"/>
+  <rect class="utama" x="828" y="510" width="28" height="186"/>
+
+  <!-- ===== JENDELA DINDING LUAR (kiri) ===== -->
+  <rect class="putih" x="200" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="240" y="556" width="26" height="104" rx="3"/>
+  <!-- (kanan) -->
+  <rect class="putih" x="934" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="974" y="556" width="26" height="104" rx="3"/>
+
+  <!-- ===== TANGGA / UNDAKAN ===== -->
+  <rect class="utama" x="312" y="696" width="576" height="16"/>
+  <rect class="utama" x="284" y="712" width="632" height="16"/>
+  <rect class="utama" x="256" y="728" width="688" height="16"/>
+</g>
+  <g transform="translate(898,342.2) scale(0.3)">
+  <!-- Siluet tampak depan Pendopo Desa Macanan -->
+  
+
+  <!-- ===== ATAP JOGLO (dua kemiringan: landai bawah, curam atas) ===== -->
+  <polygon class="utama" points="105,462 385,366 550,244 650,244 815,366 1095,462"/>
+  <!-- bubungan puncak -->
+  <rect class="utama" x="535" y="236" width="130" height="14" rx="7"/>
+
+  <!-- ===== LISPLANG ===== -->
+  <!-- celah putih pemisah -->
+  <rect class="putih" x="175" y="462" width="850" height="12"/>
+  <rect class="utama" x="175" y="474" width="850" height="42"/>
+
+  <!-- ===== RUANG TERBUKA PENDOPO (tone terang) ===== -->
+  <rect class="dalam" x="192" y="516" width="816" height="174"/>
+
+  <!-- ===== KOLOM (6 buah) ===== -->
+  <rect class="utama" x="205" y="516" width="30" height="174"/>
+  <rect class="utama" x="357" y="516" width="30" height="174"/>
+  <rect class="utama" x="509" y="516" width="30" height="174"/>
+  <rect class="utama" x="661" y="516" width="30" height="174"/>
+  <rect class="utama" x="813" y="516" width="30" height="174"/>
+  <rect class="utama" x="965" y="516" width="30" height="174"/>
+
+  <!-- umpak / kaki kolom (sedikit melebar di bawah) -->
+  <rect class="utama" x="199" y="652" width="42" height="38"/>
+  <rect class="utama" x="351" y="652" width="42" height="38"/>
+  <rect class="utama" x="503" y="652" width="42" height="38"/>
+  <rect class="utama" x="655" y="652" width="42" height="38"/>
+  <rect class="utama" x="807" y="652" width="42" height="38"/>
+  <rect class="utama" x="959" y="652" width="42" height="38"/>
+
+  <!-- ===== LANTAI PANGGUNG & UNDAKAN ===== -->
+  <rect class="utama" x="172" y="690" width="856" height="20"/>
+  <rect class="utama" x="148" y="710" width="904" height="18"/>
+  <rect class="utama" x="124" y="728" width="952" height="18"/>
+</g>
+ </g>
+ <g transform="translate(805,320.6) scale(0.26)">
+<defs>
+  <clipPath id="klipDS"><path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z"/></clipPath>
+  <clipPath id="klipBS"><path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z"/></clipPath>
+</defs>
+<rect fill="#1E2A3A" x="272" y="810" width="56" height="100"/>
+<rect fill="#1E2A3A" x="212" y="906" width="176" height="38" rx="6"/>
+<path d="M 276,56 L 326,56 Q 346,56 347,78 Q 379,438 347,798 Q 346,820 326,820 L 276,820 Q 256,820 254,798 Q 222,438 254,78 Q 256,56 276,56 Z" fill="#1E2A3A"/>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#DDE3EA"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#DDE3EA"/>
+<g clip-path="url(#klipDS)">
+  <rect x="243.5" y="282" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="242.3" y="332" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="241.6" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.40"/>
+  <rect x="241.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.40"/>
+  <rect x="242.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.40"/>
+  <rect x="243.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.40"/>
+  <rect x="244.6" y="582" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="246.7" y="632" width="24" height="44" fill="#27408B" opacity="0.40"/>
+</g>
+<g clip-path="url(#klipBS)">
+  <rect x="335.5" y="282" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="336.7" y="332" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="337.4" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.40"/>
+  <rect x="337.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.40"/>
+  <rect x="337.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.40"/>
+  <rect x="336.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.40"/>
+  <rect x="334.4" y="582" width="24" height="44" fill="#27408B" opacity="0.40"/>
+  <rect x="332.3" y="632" width="24" height="44" fill="#27408B" opacity="0.40"/>
+</g>
+<rect fill="#1E2A3A" x="239.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="314.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="235.7" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="318.8" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="242.3" y="676" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="311.5" y="676" width="52" height="16" rx="6"/>
+</g>
+ <g transform="translate(348,566)">
+<rect x="-3" y="-210" width="6" height="210" fill="#334155"/>
+<circle cx="0" cy="-214" r="6" fill="#94a3b8"/>
+<g class="bendera"><rect x="4" y="-206" width="76" height="24" fill="#c1272d"/>
+<rect x="4" y="-182" width="76" height="24" fill="#f8fafc"/></g></g>
+
+ <g transform="translate(105,574) scale(1.85)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#6b4f3a"/>
+<circle cx="0" cy="-80" r="44" fill="#3f7d4e"/>
+<circle cx="-32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="0" cy="-108" r="28" fill="#4f9160"/></g></g><g transform="translate(262,568) scale(1.45)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#6b4f3a"/>
+<circle cx="0" cy="-80" r="44" fill="#3f7d4e"/>
+<circle cx="-32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="0" cy="-108" r="28" fill="#4f9160"/></g></g>
+ <g transform="translate(1318,574) scale(1.8)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#6b4f3a"/>
+<circle cx="0" cy="-80" r="44" fill="#3f7d4e"/>
+<circle cx="-32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="0" cy="-108" r="28" fill="#4f9160"/></g></g><g transform="translate(1487,568) scale(1.5)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#6b4f3a"/>
+<circle cx="0" cy="-80" r="44" fill="#3f7d4e"/>
+<circle cx="-32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="32" cy="-58" r="32" fill="#46875a"/>
+<circle cx="0" cy="-108" r="28" fill="#4f9160"/></g></g>
+ 
+ <text x="30" y="46" font-family="sans-serif" font-size="26" fill="#1E2A3A">Siang</text>
+</g>
+
+<g transform="translate(0,650)">
+ <rect x="0" y="0" width="1600" height="620" fill="#16233d" rx="10"/>
+ <circle cx="1430" cy="88" r="34" fill="#f1f5f9"/><circle cx="1416" cy="76" r="11" fill="#16233d" opacity="0.22"/>
+ <circle class="bintang" style="animation-delay:0s" cx="140" cy="70" r="4" fill="#e2e8f0"/><circle class="bintang" style="animation-delay:0.7s" cx="360" cy="46" r="4" fill="#e2e8f0"/><circle class="bintang" style="animation-delay:1.4s" cx="620" cy="88" r="4" fill="#e2e8f0"/><circle class="bintang" style="animation-delay:2.0999999999999996s" cx="900" cy="52" r="4" fill="#e2e8f0"/><circle class="bintang" style="animation-delay:2.8s" cx="1150" cy="110" r="4" fill="#e2e8f0"/><circle class="bintang" style="animation-delay:3.5s" cx="1530" cy="140" r="4" fill="#e2e8f0"/>
+
+ <path d="M0 500 L300 190 L560 500 Z" fill="#22304a"/>
+ <path d="M1010 500 L1360 200 L1600 500 Z" fill="#22304a"/>
+ <path d="M340 500 L800 110 L1200 500 Z" fill="#2b3a58"/>
+ <path d="M756 148 L800 110 L844 148 L800 178 Z" fill="#3a4a6b"/>
+
+ 
+
+ <rect x="0" y="500" width="1600" height="120" fill="#1b2942"/>
+ <path d="M0 596 Q 400 586 800 596 T 1600 596" stroke="#22314c" stroke-width="5" fill="none"/>
+
+ <g class="malam">
+  <g transform="translate(392,268.4) scale(0.4)">
+  <!-- Siluet tampak depan Kantor Desa Macanan -->
+  <!-- Warna utama -->
+  
+
+  <!-- ===== ATAP UTAMA (limasan) ===== -->
+  <polygon class="utama" points="95,456 440,296 760,296 1105,456"/>
+  <!-- garis bubungan tebal -->
+  <rect class="utama" x="425" y="288" width="350" height="14" rx="7"/>
+
+  <!-- ===== DINDING UTAMA ===== -->
+  <rect class="utama" x="160" y="456" width="880" height="240"/>
+
+  <!-- celah putih pemisah lisplang teras -->
+  <rect class="putih" x="305" y="452" width="590" height="14"/>
+
+  <!-- ===== LISPLANG / ATAP TERAS ===== -->
+  <rect class="utama" x="305" y="466" width="590" height="44"/>
+
+  <!-- ===== AREA TERAS (dinding menjorok, tone lebih terang) ===== -->
+  <rect class="dalam" x="330" y="510" width="540" height="186"/>
+
+  <!-- ===== JENDELA DI DALAM TERAS (kiri pintu) ===== -->
+  <rect class="putih" x="392" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="428" y="566" width="26" height="100" rx="3"/>
+  <!-- (kanan pintu) -->
+  <rect class="putih" x="746" y="566" width="26" height="100" rx="3"/>
+  <rect class="putih" x="782" y="566" width="26" height="100" rx="3"/>
+
+  <!-- ===== PINTU GANDA ===== -->
+  <rect class="putih" x="556" y="548" width="88" height="148" rx="4"/>
+  <rect class="dalam" x="597" y="548" width="6" height="148"/>
+
+  <!-- ===== KOLOM TERAS (4 buah) ===== -->
+  <rect class="utama" x="344" y="510" width="28" height="186"/>
+  <rect class="utama" x="470" y="510" width="28" height="186"/>
+  <rect class="utama" x="702" y="510" width="28" height="186"/>
+  <rect class="utama" x="828" y="510" width="28" height="186"/>
+
+  <!-- ===== JENDELA DINDING LUAR (kiri) ===== -->
+  <rect class="putih" x="200" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="240" y="556" width="26" height="104" rx="3"/>
+  <!-- (kanan) -->
+  <rect class="putih" x="934" y="556" width="26" height="104" rx="3"/>
+  <rect class="putih" x="974" y="556" width="26" height="104" rx="3"/>
+
+  <!-- ===== TANGGA / UNDAKAN ===== -->
+  <rect class="utama" x="312" y="696" width="576" height="16"/>
+  <rect class="utama" x="284" y="712" width="632" height="16"/>
+  <rect class="utama" x="256" y="728" width="688" height="16"/>
+</g>
+  <g transform="translate(898,342.2) scale(0.3)">
+  <!-- Siluet tampak depan Pendopo Desa Macanan -->
+  
+
+  <!-- ===== ATAP JOGLO (dua kemiringan: landai bawah, curam atas) ===== -->
+  <polygon class="utama" points="105,462 385,366 550,244 650,244 815,366 1095,462"/>
+  <!-- bubungan puncak -->
+  <rect class="utama" x="535" y="236" width="130" height="14" rx="7"/>
+
+  <!-- ===== LISPLANG ===== -->
+  <!-- celah putih pemisah -->
+  <rect class="putih" x="175" y="462" width="850" height="12"/>
+  <rect class="utama" x="175" y="474" width="850" height="42"/>
+
+  <!-- ===== RUANG TERBUKA PENDOPO (tone terang) ===== -->
+  <rect class="dalam" x="192" y="516" width="816" height="174"/>
+
+  <!-- ===== KOLOM (6 buah) ===== -->
+  <rect class="utama" x="205" y="516" width="30" height="174"/>
+  <rect class="utama" x="357" y="516" width="30" height="174"/>
+  <rect class="utama" x="509" y="516" width="30" height="174"/>
+  <rect class="utama" x="661" y="516" width="30" height="174"/>
+  <rect class="utama" x="813" y="516" width="30" height="174"/>
+  <rect class="utama" x="965" y="516" width="30" height="174"/>
+
+  <!-- umpak / kaki kolom (sedikit melebar di bawah) -->
+  <rect class="utama" x="199" y="652" width="42" height="38"/>
+  <rect class="utama" x="351" y="652" width="42" height="38"/>
+  <rect class="utama" x="503" y="652" width="42" height="38"/>
+  <rect class="utama" x="655" y="652" width="42" height="38"/>
+  <rect class="utama" x="807" y="652" width="42" height="38"/>
+  <rect class="utama" x="959" y="652" width="42" height="38"/>
+
+  <!-- ===== LANTAI PANGGUNG & UNDAKAN ===== -->
+  <rect class="utama" x="172" y="690" width="856" height="20"/>
+  <rect class="utama" x="148" y="710" width="904" height="18"/>
+  <rect class="utama" x="124" y="728" width="952" height="18"/>
+</g>
+ </g>
+ <g transform="translate(805,320.6) scale(0.26)">
+<defs>
+  <clipPath id="klipDM"><path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z"/></clipPath>
+  <clipPath id="klipBM"><path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z"/></clipPath>
+  <filter id="glowBesarM" x="-120%" y="-30%" width="340%" height="160%"><feGaussianBlur stdDeviation="26"/></filter>
+  <filter id="glowKecilM" x="-80%" y="-20%" width="260%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#FFE9A8" opacity="0.9" filter="url(#glowBesarM)"/>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#FFF6D8" opacity="0.9" filter="url(#glowKecilM)"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#FFE9A8" opacity="0.9" filter="url(#glowBesarM)"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#FFF6D8" opacity="0.9" filter="url(#glowKecilM)"/>
+<rect fill="#1E2A3A" x="272" y="810" width="56" height="100"/>
+<rect fill="#1E2A3A" x="212" y="906" width="176" height="38" rx="6"/>
+<path d="M 276,56 L 326,56 Q 346,56 347,78 Q 379,438 347,798 Q 346,820 326,820 L 276,820 Q 256,820 254,798 Q 222,438 254,78 Q 256,56 276,56 Z" fill="#1E2A3A"/>
+<path d="M 258,78 Q 229,438 258,798 L 276,798 Q 247,438 276,78 Z" fill="#FFFDF2"/>
+<path d="M 343,78 Q 372,438 343,798 L 325,798 Q 354,438 325,78 Z" fill="#FFFDF2"/>
+<g clip-path="url(#klipDM)">
+  <rect x="243.5" y="282" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="242.3" y="332" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="241.6" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.95"/>
+  <rect x="241.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.95"/>
+  <rect x="242.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="243.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.95"/>
+  <rect x="244.6" y="582" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="246.7" y="632" width="24" height="44" fill="#27408B" opacity="0.95"/>
+</g>
+<g clip-path="url(#klipBM)">
+  <rect x="335.5" y="282" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="336.7" y="332" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="337.4" y="382" width="24" height="44" fill="#1E8E3E" opacity="0.95"/>
+  <rect x="337.5" y="432" width="24" height="44" fill="#E5C11A" opacity="0.95"/>
+  <rect x="337.0" y="482" width="24" height="44" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="336.0" y="532" width="24" height="44" fill="#B3261E" opacity="0.95"/>
+  <rect x="334.4" y="582" width="24" height="44" fill="#27408B" opacity="0.95"/>
+  <rect x="332.3" y="632" width="24" height="44" fill="#27408B" opacity="0.95"/>
+</g>
+<rect fill="#1E2A3A" x="239.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="314.5" y="240" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="235.7" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="318.8" y="470" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="242.3" y="676" width="52" height="16" rx="6"/>
+<rect fill="#1E2A3A" x="311.5" y="676" width="52" height="16" rx="6"/>
+</g>
+ <g transform="translate(348,566)">
+<rect x="-3" y="-210" width="6" height="210" fill="#16203a"/>
+<circle cx="0" cy="-214" r="6" fill="#3d4a63"/>
+<g class="bendera"><rect x="4" y="-206" width="76" height="24" fill="#c1272d"/>
+<rect x="4" y="-182" width="76" height="24" fill="#f8fafc"/></g></g>
+
+ <g transform="translate(105,574) scale(1.85)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#1d2436"/>
+<circle cx="0" cy="-80" r="44" fill="#1b2f2a"/>
+<circle cx="-32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="0" cy="-108" r="28" fill="#22392f"/></g></g><g transform="translate(262,568) scale(1.45)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#1d2436"/>
+<circle cx="0" cy="-80" r="44" fill="#1b2f2a"/>
+<circle cx="-32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="0" cy="-108" r="28" fill="#22392f"/></g></g>
+ <g transform="translate(1318,574) scale(1.8)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#1d2436"/>
+<circle cx="0" cy="-80" r="44" fill="#1b2f2a"/>
+<circle cx="-32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="0" cy="-108" r="28" fill="#22392f"/></g></g><g transform="translate(1487,568) scale(1.5)"><g class="pohon">
+<rect x="-8" y="-58" width="16" height="62" fill="#1d2436"/>
+<circle cx="0" cy="-80" r="44" fill="#1b2f2a"/>
+<circle cx="-32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="32" cy="-58" r="32" fill="#1b2f2a"/>
+<circle cx="0" cy="-108" r="28" fill="#22392f"/></g></g>
+ <circle class="kunang" style="animation-delay:0s" cx="300" cy="470" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:1.3s" cx="420" cy="510" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:2.6s" cx="560" cy="440" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:3.9000000000000004s" cx="1080" cy="460" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:5.2s" cx="1220" cy="500" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:6.5s" cx="1340" cy="450" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:7.800000000000001s" cx="700" cy="520" r="5" fill="#FFE9A8"/><circle class="kunang" style="animation-delay:9.1s" cx="980" cy="430" r="5" fill="#FFE9A8"/>
+ <text x="30" y="46" font-family="sans-serif" font-size="26" fill="#e2e8f0">Malam</text>
+</g>
+</svg>
