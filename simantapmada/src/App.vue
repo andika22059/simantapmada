@@ -1,16 +1,20 @@
 <script setup></script>
 
 <template>
-  <!-- Transisi halus antar halaman (fade + geser tipis) -->
-  <router-view v-slot="{ Component }">
-    <transition name="halaman" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <!--
+    CATATAN: JANGAN bungkus router-view ini dengan <transition>.
+    Komponen rute level atas (AdminDashboard, KadesDashboard, ProfileView, dll)
+    punya DUA root node (<Topbar /> + <div>), sedangkan <Transition> Vue 3 hanya
+    bisa menganimasikan komponen ber-root tunggal. Kalau dipaksa, render gagal
+    dan halaman jadi blank (mis. setelah logout).
+    Transisi antar menu tetap ada, dipasang di RouterView anak pada AdminDashboard.
+  -->
+  <router-view></router-view>
 </template>
 
 <style>
-/* Sengaja TIDAK scoped: kelas transisi dipakai oleh komponen halaman. */
+/* Kelas transisi dipakai oleh RouterView anak di AdminDashboard.
+   Sengaja TIDAK scoped agar bisa menjangkau komponen halaman. */
 .halaman-enter-active,
 .halaman-leave-active {
   transition:
@@ -23,5 +27,17 @@
 }
 .halaman-leave-to {
   opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halaman-enter-active,
+  .halaman-leave-active {
+    transition: none;
+  }
+  .halaman-enter-from,
+  .halaman-leave-to {
+    opacity: 1;
+    transform: none;
+  }
 }
 </style>
