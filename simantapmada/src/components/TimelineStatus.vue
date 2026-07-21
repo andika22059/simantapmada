@@ -15,21 +15,27 @@ const langkah = [
 ];
 
 const ditolak = computed(() => props.status === "Ditolak");
+// "Dikembalikan" = dikembalikan Sekdes ke warga untuk diperbaiki
+const dikembalikan = computed(() => props.status === "Dikembalikan");
+const menyimpang = computed(() => ditolak.value || dikembalikan.value);
 
 const indeksAktif = computed(() => {
+  // saat dikembalikan, tandai berhenti di tahap verifikasi
+  if (dikembalikan.value) return 1;
   const i = langkah.findIndex((l) => l.key === props.status);
   return i < 0 ? 0 : i;
 });
 
 const persenGaris = computed(() => {
   if (ditolak.value) return 100;
+  if (dikembalikan.value) return 50;
   const total = langkah.length - 1;
   return total <= 0 ? 0 : (indeksAktif.value / total) * 100;
 });
 </script>
 
 <template>
-  <div class="tl-wrap" :class="{ tolak: ditolak }">
+  <div class="tl-wrap" :class="{ tolak: ditolak, kembali: dikembalikan }">
     <div class="tl-rel">
       <div class="tl-track"></div>
       <div class="tl-fill" :style="{ width: persenGaris + '%' }"></div>
@@ -40,8 +46,8 @@ const persenGaris = computed(() => {
           :key="l.key"
           class="tl-step"
           :class="{
-            aktif: !ditolak && i <= indeksAktif,
-            kini: !ditolak && i === indeksAktif && props.status !== 'Selesai',
+            aktif: !menyimpang && i <= indeksAktif,
+            kini: !menyimpang && i === indeksAktif && props.status !== 'Selesai',
           }"
         >
           <div class="tl-dot">
@@ -54,6 +60,10 @@ const persenGaris = computed(() => {
 
     <p v-if="ditolak" class="tl-pesan">
       <i class="fa-solid fa-circle-xmark"></i> Pengajuan ditolak Kepala Desa.
+    </p>
+    <p v-else-if="dikembalikan" class="tl-pesan kembali">
+      <i class="fa-solid fa-rotate-left"></i> Dikembalikan ke warga untuk
+      diperbaiki.
     </p>
   </div>
 </template>
@@ -89,6 +99,19 @@ const persenGaris = computed(() => {
 }
 .tolak .tl-fill {
   background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+.kembali .tl-fill {
+  background: linear-gradient(90deg, #d97706, #f59e0b);
+}
+.kembali .tl-dot {
+  border-color: #d97706;
+  color: #d97706;
+}
+.kembali .tl-label {
+  color: #b45309;
+}
+.tl-pesan.kembali {
+  color: #b45309;
 }
 
 .tl-steps {

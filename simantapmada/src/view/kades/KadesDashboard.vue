@@ -35,7 +35,7 @@
             <i class="fa-solid fa-file-signature"></i>
           </div>
           <div class="cs-info">
-            <h3>{{ stat.menunggu_persetujuan }}</h3>
+            <h3><AngkaNaik :nilai="stat.menunggu_persetujuan" /></h3>
             <span>Menunggu Persetujuan</span>
           </div>
           <div class="cs-arrow"><i class="fa-solid fa-chevron-right"></i></div>
@@ -50,7 +50,7 @@
             <i class="fa-solid fa-bell"></i>
           </div>
           <div class="cs-info">
-            <h3>{{ stat.perlu_atensi }}</h3>
+            <h3><AngkaNaik :nilai="stat.perlu_atensi" /></h3>
             <span>Surat Perlu Atensi</span>
           </div>
           <div class="cs-arrow"><i class="fa-solid fa-chevron-right"></i></div>
@@ -65,7 +65,7 @@
             <i class="fa-solid fa-chart-column"></i>
           </div>
           <div class="cs-info">
-            <h3>{{ stat.disetujui }}</h3>
+            <h3><AngkaNaik :nilai="stat.disetujui" /></h3>
             <span>Rekap Bulanan</span>
           </div>
           <div class="cs-arrow"><i class="fa-solid fa-chevron-right"></i></div>
@@ -97,11 +97,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="loadingPersetujuan">
-                    <td colspan="4" class="td-empty">
-                      <i class="fa-solid fa-spinner fa-spin"></i> Memuat...
-                    </td>
-                  </tr>
+                  <template v-if="loadingPersetujuan">
+                    <tr v-for="n in 4" :key="'skp-' + n" class="skeleton-row">
+                      <td v-for="c in 4" :key="c"><span class="skeleton-bar"></span></td>
+                    </tr>
+                  </template>
                   <tr v-else-if="antreanPersetujuan.length === 0">
                     <td colspan="4" class="td-empty">
                       <i class="fa-solid fa-mug-hot"></i> Tidak ada antrean
@@ -152,11 +152,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-if="loadingAtensi">
-                    <td colspan="4" class="td-empty">
-                      <i class="fa-solid fa-spinner fa-spin"></i> Memuat...
-                    </td>
-                  </tr>
+                  <template v-if="loadingAtensi">
+                    <tr v-for="n in 4" :key="'ska-' + n" class="skeleton-row">
+                      <td v-for="c in 4" :key="c"><span class="skeleton-bar"></span></td>
+                    </tr>
+                  </template>
                   <tr v-else-if="antreanAtensi.length === 0">
                     <td colspan="4" class="td-empty">
                       <i class="fa-solid fa-inbox"></i> Tidak ada surat perlu
@@ -252,6 +252,7 @@
 
 <script setup>
 import Topbar from "../../components/Topbar.vue";
+import AngkaNaik from "../../components/AngkaNaik.vue";
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
@@ -806,4 +807,9 @@ onMounted(() => {
     font-size: 17px;
   }
 }
+
+/* ===== Skeleton loading ===== */
+.skeleton-row td { padding: 14px 16px; }
+.skeleton-bar { display: block; height: 14px; border-radius: 7px; background: linear-gradient(90deg, #eef2f7 25%, #e2e8f0 37%, #eef2f7 63%); background-size: 400% 100%; animation: skeletonShimmer 1.4s ease infinite; }
+@keyframes skeletonShimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
 </style>

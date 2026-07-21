@@ -102,14 +102,27 @@
               }}</span>
             </button>
             <div v-if="notifOpen" class="notif-dropdown">
-              <div class="notif-head">Notifikasi Retensi Arsip</div>
+              <div class="notif-head">Notifikasi</div>
               <div v-if="totalNotif === 0" class="notif-empty">
-                Tidak ada arsip yang perlu perhatian.
+                Tidak ada yang perlu perhatian saat ini.
               </div>
               <template v-else>
                 <div
+                  v-for="(t, i) in notifTugas"
+                  :key="'tugas-' + i"
+                  class="notif-item"
+                  :class="t.kelas"
+                  style="cursor: pointer"
+                  @click="bukaNotif(t.ke)"
+                >
+                  <i class="fa-solid" :class="t.ikon"></i>
+                  <span><strong>{{ t.jumlah }}</strong> {{ t.teks }}</span>
+                </div>
+                <div
                   v-if="notifRetensi.kedaluwarsa > 0"
                   class="notif-item danger"
+                  style="cursor: pointer"
+                  @click="bukaNotif('/admin/arsip')"
                 >
                   <i class="fa-solid fa-triangle-exclamation"></i>
                   <span
@@ -117,16 +130,18 @@
                     kedaluwarsa</span
                   >
                 </div>
-                <div v-if="notifRetensi.segera > 0" class="notif-item warn">
+                <div
+                  v-if="notifRetensi.segera > 0"
+                  class="notif-item warn"
+                  style="cursor: pointer"
+                  @click="bukaNotif('/admin/arsip')"
+                >
                   <i class="fa-solid fa-clock"></i>
                   <span
                     ><strong>{{ notifRetensi.segera }}</strong> arsip jatuh tempo
                     ≤30 hari</span
                   >
                 </div>
-                <button class="notif-link" @click="bukaArsipDariNotif">
-                  Lihat Arsip →
-                </button>
               </template>
             </div>
           </div>
@@ -240,26 +255,64 @@ const roleLabel = computed(() =>
 );
 const fotoUser = computed(() => userData.value?.foto || null);
 
-// ===== Notifikasi retensi arsip (lonceng global) =====
+// ===== Notifikasi lonceng global: retensi arsip + tugas per-role =====
 const notifRetensi = ref({ kedaluwarsa: 0, segera: 0 });
+const notifTugas = ref([]); // [{ ikon, kelas, teks, jumlah, ke }]
 const notifOpen = ref(false);
-const totalNotif = computed(
+
+const totalRetensi = computed(
   () => notifRetensi.value.kedaluwarsa + notifRetensi.value.segera,
 );
-const muatNotifRetensi = async () => {
+const totalTugas = computed(() =>
+  notifTugas.value.reduce((a, t) => a + (t.jumlah || 0), 0),
+);
+const totalNotif = computed(() => totalRetensi.value + totalTugas.value);
+
+const muatNotif = async () => {
   const role = userData.value?.role;
-  if (!["admin", "sekdes", "kades", "developer"].includes(role)) return;
+  if (!role) return;
+  const API = `${import.meta.env.VITE_API_URL}/api`;
+
+  // Retensi arsip — untuk semua pengelola arsip
+  if (["admin", "sekdes", "kades", "developer"].includes(role)) {
+    try {
+      const res = await axios.get(`${API}/arsip`);
+      notifRetensi.value = hitungRetensi(res.data?.data || []);
+    } catch (e) {
+      /* opsional */
+    }
+  }
+
+  // Tugas sesuai peran
   try {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/arsip`);
-    notifRetensi.value = hitungRetensi(res.data?.data || []);
+    if (role === "sekdes") {
+      const { data } = await axios.get(`${API}/dashboard/statistik-sekdes`);
+      const d = data?.data || {};
+      const t = [];
+      if (d.menunggu_verifikasi > 0)
+        t.push({ ikon: "fa-clipboard-check", kelas: "info", teks: "berkas perlu diverifikasi", jumlah: d.menunggu_verifikasi, ke: "/sekdes/verifikasi" });
+      if (d.menunggu_disposisi > 0)
+        t.push({ ikon: "fa-share-from-square", kelas: "info", teks: "surat perlu disposisi", jumlah: d.menunggu_disposisi, ke: "/sekdes/disposisi" });
+      notifTugas.value = t;
+    } else if (role === "kades") {
+      const { data } = await axios.get(`${API}/dashboard/statistik-kades`);
+      const d = data?.data || {};
+      const t = [];
+      if (d.menunggu_persetujuan > 0)
+        t.push({ ikon: "fa-file-signature", kelas: "info", teks: "surat perlu persetujuan", jumlah: d.menunggu_persetujuan, ke: "/kades/persetujuan" });
+      if (d.perlu_atensi > 0)
+        t.push({ ikon: "fa-bell", kelas: "warn", teks: "disposisi perlu tindak lanjut", jumlah: d.perlu_atensi, ke: "/kades/atensi" });
+      notifTugas.value = t;
+    }
   } catch (e) {
-    /* notif opsional */
+    /* opsional */
   }
 };
-onMounted(muatNotifRetensi);
-const bukaArsipDariNotif = () => {
+onMounted(muatNotif);
+
+const bukaNotif = (ke) => {
   notifOpen.value = false;
-  router.push("/admin/arsip");
+  if (ke) router.push(ke);
 };
 
 // Arahkan logo navbar ke dashboard sesuai role
@@ -1156,6 +1209,7 @@ body {
 .notif-item { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 8px 10px; border-radius: 10px; margin-bottom: 6px; }
 .notif-item.danger { background: #fef2f2; color: #b91c1c; }
 .notif-item.warn { background: #fffbeb; color: #b45309; }
+.notif-item.info { background: #ecfdf5; color: #047857; }
 .notif-link { width: 100%; margin-top: 4px; padding: 8px; border: none; border-radius: 10px; background: #059669; color: #fff; font-weight: 700; cursor: pointer; }
 .notif-link:hover { background: #047857; }
 </style>
