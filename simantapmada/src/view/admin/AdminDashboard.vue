@@ -141,7 +141,7 @@
               <div class="card-icon animate-float">
                 <i class="fa-solid fa-file-signature"></i>
               </div>
-              <h3>{{ stat.pengajuan_diproses }}</h3>
+              <h3><AngkaNaik :nilai="stat.pengajuan_diproses" /></h3>
               <span>Sedang Diproses</span>
               <div class="card-bg-icon">
                 <i class="fa-solid fa-file-signature"></i>
@@ -158,7 +158,7 @@
               <div class="card-icon animate-float">
                 <i class="fa-solid fa-inbox"></i>
               </div>
-              <h3>{{ stat.surat_masuk }}</h3>
+              <h3><AngkaNaik :nilai="stat.surat_masuk" /></h3>
               <span>Surat Masuk</span>
               <div class="card-bg-icon"><i class="fa-solid fa-inbox"></i></div>
             </a>
@@ -173,7 +173,7 @@
               <div class="card-icon animate-float">
                 <i class="fa-solid fa-paper-plane"></i>
               </div>
-              <h3>{{ stat.surat_keluar }}</h3>
+              <h3><AngkaNaik :nilai="stat.surat_keluar" /></h3>
               <span>Surat Keluar</span>
               <div class="card-bg-icon">
                 <i class="fa-solid fa-paper-plane"></i>
@@ -190,7 +190,7 @@
               <div class="card-icon animate-float">
                 <i class="fa-solid fa-box-archive"></i>
               </div>
-              <h3>{{ stat.arsip }}</h3>
+              <h3><AngkaNaik :nilai="stat.arsip" /></h3>
               <span>Arsip Digital</span>
               <div class="card-bg-icon">
                 <i class="fa-solid fa-box-archive"></i>
@@ -207,7 +207,7 @@
               <div class="card-icon animate-float">
                 <i class="fa-solid fa-warehouse"></i>
               </div>
-              <h3>{{ stat.aset }}</h3>
+              <h3><AngkaNaik :nilai="stat.aset" /></h3>
               <span>Inventaris Aset</span>
               <div class="card-bg-icon">
                 <i class="fa-solid fa-warehouse"></i>
@@ -436,13 +436,19 @@
           </div>
         </div>
       </div>
-      <RouterView />
+      <!-- Transisi halus saat berpindah menu admin -->
+      <RouterView v-slot="{ Component }">
+        <transition name="halaman" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </RouterView>
     </div>
   </div>
 </template>
 
 <script setup>
 import Topbar from "../../components/Topbar.vue";
+import AngkaNaik from "../../components/AngkaNaik.vue";
 import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";

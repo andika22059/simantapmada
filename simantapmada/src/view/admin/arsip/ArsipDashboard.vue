@@ -25,14 +25,22 @@
         </div>
       </div>
 
-      <div class="anri-alert" v-if="jumlahExpired > 0">
+      <div class="anri-alert" v-if="jumlahExpired > 0 || jumlahSegera > 0">
         <div class="alert-icon-box">
           <i class="fa-solid fa-bell-exclamation"></i>
         </div>
         <div class="alert-text">
-          PERHATIAN: Terdapat <strong>{{ jumlahExpired }} Dokumen</strong> yang
-          masa retensinya kedaluwarsa. Segera lakukan pemindahan atau pemusnahan
-          sesuai prosedur!
+          <template v-if="jumlahExpired > 0">
+            PERHATIAN: Terdapat
+            <strong>{{ jumlahExpired }} dokumen</strong> yang masa retensinya
+            <strong>sudah kedaluwarsa</strong>. Segera lakukan pemindahan atau
+            pemusnahan sesuai prosedur!
+          </template>
+          <template v-if="jumlahSegera > 0">
+            <template v-if="jumlahExpired > 0"><br /></template>
+            Selain itu, <strong>{{ jumlahSegera }} dokumen</strong> akan
+            <strong>jatuh tempo dalam ≤30 hari</strong>. Mohon disiapkan.
+          </template>
         </div>
       </div>
 
@@ -221,6 +229,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import { statusRetensi } from "../../../assets/js/retensi.js";
 
 const router = useRouter();
 const showModal = ref(false);
@@ -267,11 +276,14 @@ const jumlahInaktif = computed(
 const jumlahPermanen = computed(
   () => arsipList.value.filter((a) => a.status === "Permanen").length,
 );
+// Kedaluwarsa & akan jatuh tempo dihitung OTOMATIS dari tgl_retensi
+// (lihat helper retensi.js), tidak lagi mengandalkan status manual.
 const jumlahExpired = computed(
   () =>
-    arsipList.value.filter(
-      (a) => a.status === "Expired" || a.status === "Musnah",
-    ).length,
+    arsipList.value.filter((a) => statusRetensi(a) === "kedaluwarsa").length,
+);
+const jumlahSegera = computed(
+  () => arsipList.value.filter((a) => statusRetensi(a) === "segera").length,
 );
 
 const getBadgeClass = (status) => {

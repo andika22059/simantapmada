@@ -275,3 +275,19 @@ button:disabled,
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* =====================================================================
+   AKSESIBILITAS: hormati preferensi "kurangi gerakan" (prefers-reduced-motion).
+   Pengguna yang sensitif terhadap animasi (mis. vertigo/motion sickness)
+   akan mendapat tampilan tanpa animasi, tanpa kehilangan fungsi apa pun.
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

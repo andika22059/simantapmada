@@ -85,6 +85,51 @@
         </ul>
 
         <div class="nav-user-controls">
+          <!-- Lonceng notifikasi retensi arsip -->
+          <div
+            class="notif-wrap"
+            v-if="['admin', 'sekdes', 'kades', 'developer'].includes(roleUser)"
+          >
+            <button
+              class="btn-notif"
+              type="button"
+              title="Notifikasi Retensi Arsip"
+              @click="notifOpen = !notifOpen"
+            >
+              <i class="fa-solid fa-bell"></i>
+              <span v-if="totalNotif > 0" class="notif-badge">{{
+                totalNotif > 99 ? "99+" : totalNotif
+              }}</span>
+            </button>
+            <div v-if="notifOpen" class="notif-dropdown">
+              <div class="notif-head">Notifikasi Retensi Arsip</div>
+              <div v-if="totalNotif === 0" class="notif-empty">
+                Tidak ada arsip yang perlu perhatian.
+              </div>
+              <template v-else>
+                <div
+                  v-if="notifRetensi.kedaluwarsa > 0"
+                  class="notif-item danger"
+                >
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span
+                    ><strong>{{ notifRetensi.kedaluwarsa }}</strong> arsip sudah
+                    kedaluwarsa</span
+                  >
+                </div>
+                <div v-if="notifRetensi.segera > 0" class="notif-item warn">
+                  <i class="fa-solid fa-clock"></i>
+                  <span
+                    ><strong>{{ notifRetensi.segera }}</strong> arsip jatuh tempo
+                    ≤30 hari</span
+                  >
+                </div>
+                <button class="notif-link" @click="bukaArsipDariNotif">
+                  Lihat Arsip →
+                </button>
+              </template>
+            </div>
+          </div>
           <div
             class="user-profile-card"
             @click="router.push('/profil')"
@@ -165,6 +210,7 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { hitungRetensi } from "../assets/js/retensi.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -193,6 +239,28 @@ const roleLabel = computed(() =>
   (userData.value?.role || "admin").toUpperCase(),
 );
 const fotoUser = computed(() => userData.value?.foto || null);
+
+// ===== Notifikasi retensi arsip (lonceng global) =====
+const notifRetensi = ref({ kedaluwarsa: 0, segera: 0 });
+const notifOpen = ref(false);
+const totalNotif = computed(
+  () => notifRetensi.value.kedaluwarsa + notifRetensi.value.segera,
+);
+const muatNotifRetensi = async () => {
+  const role = userData.value?.role;
+  if (!["admin", "sekdes", "kades", "developer"].includes(role)) return;
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/arsip`);
+    notifRetensi.value = hitungRetensi(res.data?.data || []);
+  } catch (e) {
+    /* notif opsional */
+  }
+};
+onMounted(muatNotifRetensi);
+const bukaArsipDariNotif = () => {
+  notifOpen.value = false;
+  router.push("/admin/arsip");
+};
 
 // Arahkan logo navbar ke dashboard sesuai role
 const getDashboardLink = () => {
@@ -1076,4 +1144,18 @@ body {
     font-size: 13px;
   }
 }
+
+/* ===== Lonceng notifikasi retensi ===== */
+.notif-wrap { position: relative; }
+.btn-notif { position: relative; width: 42px; height: 42px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; color: #334155; cursor: pointer; font-size: 17px; transition: 0.2s; }
+.btn-notif:hover { background: #f1f5f9; }
+.notif-badge { position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: #dc2626; color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.notif-dropdown { position: absolute; top: 52px; right: 0; width: 280px; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 16px 40px rgba(15,23,42,.14); padding: 12px; z-index: 3000; }
+.notif-head { font-weight: 800; font-size: 13px; color: #0f172a; margin-bottom: 8px; }
+.notif-empty { font-size: 13px; color: #64748b; padding: 6px 2px; }
+.notif-item { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 8px 10px; border-radius: 10px; margin-bottom: 6px; }
+.notif-item.danger { background: #fef2f2; color: #b91c1c; }
+.notif-item.warn { background: #fffbeb; color: #b45309; }
+.notif-link { width: 100%; margin-top: 4px; padding: 8px; border: none; border-radius: 10px; background: #059669; color: #fff; font-weight: 700; cursor: pointer; }
+.notif-link:hover { background: #047857; }
 </style>

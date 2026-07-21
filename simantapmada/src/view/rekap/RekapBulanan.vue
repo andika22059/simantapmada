@@ -95,7 +95,7 @@
                   <div
                     class="chart-fill"
                     :style="{
-                      width: chartWidth(item.value) + '%',
+                      width: (tampilGrafik ? chartWidth(item.value) : 0) + '%',
                       background: item.color,
                     }"
                   >
@@ -224,8 +224,12 @@ const kembali = () => {
   else router.back();
 };
 
+// Penanda agar batang grafik tumbuh dari 0 saat data selesai dimuat
+const tampilGrafik = ref(false);
+
 const fetchRekap = async () => {
   loading.value = true;
+  tampilGrafik.value = false;
   try {
     const res = await axios.get(`${BASE}/dashboard/rekap-bulanan`, {
       params: { bulan: bulan.value, tahun: tahun.value },
@@ -236,6 +240,8 @@ const fetchRekap = async () => {
     data.value = {};
   } finally {
     loading.value = false;
+    // beri jeda sesaat supaya transisi lebar batang terpicu (0 -> nilai)
+    setTimeout(() => (tampilGrafik.value = true), 80);
   }
 };
 

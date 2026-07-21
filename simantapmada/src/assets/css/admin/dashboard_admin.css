@@ -1005,7 +1005,9 @@
   }
   .main-content {
     width: 100%;
-    padding: 0 15px;
+    /* JANGAN pakai shorthand 'padding: 0 15px' — itu me-reset padding-top
+       sehingga konten tertutup navbar (fixed, 80px) di layar HP. */
+    padding: 80px 15px 0;
     box-sizing: border-box;
   }
 }
