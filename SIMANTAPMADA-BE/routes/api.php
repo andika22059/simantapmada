@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PelayananController;
 use App\Http\Controllers\Api\ArsipController;
 use App\Http\Controllers\Api\SuratKeluarController;
 use App\Http\Controllers\Api\PengaturanController;
+use App\Http\Controllers\Api\UserController;
 
 // =====================================================
 // Auth (login terbuka, sisanya butuh token)
@@ -63,6 +64,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/statistik-user', [DashboardController::class, 'statistikUser']);
         Route::get('/rekap-bulanan', [DashboardController::class, 'rekapBulanan']);
         Route::get('/statistik-laporan', [DashboardController::class, 'statistikLaporan']);
+    });
+
+    // =====================================================
+    // Kelola Akun Pengguna (khusus Developer — dicek di controller)
+    // =====================================================
+    Route::prefix('users')->group(function () {
+        Route::get('/',              [UserController::class, 'index']);
+        Route::post('/',             [UserController::class, 'store']);
+        Route::put('/{id}',          [UserController::class, 'update']);
+        Route::delete('/{id}',       [UserController::class, 'destroy']);
+        Route::put('/{id}/reset-password', [UserController::class, 'resetPassword']);
     });
 
     // =====================================================

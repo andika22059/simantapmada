@@ -60,9 +60,23 @@
       </div>
 
       <!-- STATUS USER SISTEM (per role) -->
-      <div class="section-title fade-up delay-1">
-        <i class="fa-solid fa-users-gear"></i> Status Akun Pengguna (Total:
-        {{ dataUser.total }})
+      <div
+        class="section-title fade-up delay-1"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 12px;
+        "
+      >
+        <span>
+          <i class="fa-solid fa-users-gear"></i> Status Akun Pengguna (Total:
+          {{ dataUser.total }})
+        </span>
+        <button class="btn-kelola-akun" @click="router.push('/dev/akun')">
+          <i class="fa-solid fa-user-gear"></i> Kelola Akun
+        </button>
       </div>
       <div class="user-grid fade-up delay-1">
         <div class="user-box ub-admin">
@@ -194,8 +208,10 @@
 <script setup>
 import Topbar from "../../components/Topbar.vue";
 import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
+const router = useRouter();
 const BASE = `${import.meta.env.VITE_API_URL}/api`;
 
 const userData = ref(null);
@@ -769,4 +785,7 @@ onMounted(() => {
     font-size: 17px;
   }
 }
+
+.btn-kelola-akun{background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:inherit;box-shadow:0 4px 12px rgba(16,185,129,.25);transition:.25s}
+.btn-kelola-akun:hover{transform:translateY(-2px)}
 </style>

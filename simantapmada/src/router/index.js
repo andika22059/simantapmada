@@ -227,6 +227,12 @@ const routes = [
 
   // --- DEVELOPER ---
   {
+    path: "/dev/akun",
+    name: "KelolaAkun",
+    component: () => import("../view/dev/KelolaAkun.vue"),
+    meta: { requiresAuth: true },
+  },
+  {
     path: "/dev",
     name: "DeveloperDashboard",
     component: () => import("../view/dev/DeveloperDashboard.vue"),

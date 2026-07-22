@@ -443,7 +443,14 @@ const menuRole = computed(() => {
   }
 
   if (role === "developer") {
-    return [dash];
+    return [
+      dash,
+      {
+        to: "/dev/akun",
+        icon: "fa-solid fa-users-gear",
+        label: "Kelola Akun",
+      },
+    ];
   }
 
   // warga (default)

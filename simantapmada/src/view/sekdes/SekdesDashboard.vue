@@ -861,4 +861,33 @@ onMounted(() => {
   background-size: 400% 100%; animation: skeletonShimmer 1.4s ease infinite;
 }
 @keyframes skeletonShimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+
+/* ===== Perbaikan tampilan HP: tabel dashboard bisa digeser + panel proporsional ===== */
+@media (max-width: 768px) {
+  .box-body {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table-modern {
+    min-width: 560px;
+  }
+  .notification-panel {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .panel-body {
+    padding: 14px;
+  }
+  .timeline-item {
+    padding: 12px;
+  }
+  .tl-content {
+    min-width: 0;
+  }
+  .tl-content p,
+  .tl-content strong {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
 </style>
