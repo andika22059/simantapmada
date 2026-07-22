@@ -3,7 +3,7 @@
     <!-- NAV -->
     <div class="warga-nav">
       <a class="warga-brand">
-        <img src="../../assets/img/logoSiMANTAPMADA.png" alt="logo" class="brand-logo" onerror="this.style.display='none'" />
+        <img src="/logoSiMANTAPMADA.png" alt="logo" class="brand-logo" onerror="this.style.display='none'" />
         <span>SiMANTAP<b>MADA</b></span>
       </a>
       <div class="nav-right">
