@@ -567,14 +567,34 @@ const handleLogin = async () => {
   });
 
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/login`,
-      {
-        username: username.value,
-        password: password.value,
-      },
-      { timeout: 5000 },
-    );
+    // Hosting shared kadang lambat "bangun" (cold start), jadi percobaan
+    // pertama bisa timeout. Kita coba beberapa kali dengan timeout lega
+    // sebelum menyerah — supaya blip koneksi sesaat tidak langsung gagal.
+    const kirimLogin = () =>
+      axios.post(
+        `${import.meta.env.VITE_API_URL}/api/login`,
+        { username: username.value, password: password.value },
+        { timeout: 15000 },
+      );
+    let response;
+    let percobaan = 0;
+    while (true) {
+      percobaan++;
+      try {
+        response = await kirimLogin();
+        break;
+      } catch (err) {
+        const gangguanJaringan =
+          err.code === "ECONNABORTED" ||
+          err.message === "Network Error" ||
+          !err.response;
+        if (gangguanJaringan && percobaan < 3) {
+          await new Promise((r) => setTimeout(r, 800 * percobaan));
+          continue; // coba lagi
+        }
+        throw err; // password salah / gagal beneran → lempar ke catch
+      }
+    }
 
     const user = response.data.user;
     const token = response.data.token;
@@ -621,8 +641,8 @@ const handleLogin = async () => {
     ) {
       Swal.fire({
         icon: "error",
-        title: "Server Tidak Merespon",
-        text: "Pastikan MySQL (XAMPP) sudah Start, dan 'php artisan serve' sedang berjalan.",
+        title: "Koneksi ke Server Gagal",
+        text: "Tidak dapat terhubung ke server. Periksa koneksi internet Anda, lalu coba lagi. Bila masalah berlanjut, hubungi pengelola sistem.",
         confirmButtonColor: "#059669",
       });
       return;

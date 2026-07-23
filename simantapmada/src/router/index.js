@@ -328,7 +328,27 @@ router.beforeEach((to, from, next) => {
   if (to.path !== from.path) mulaiProgressRute();
   next();
 });
-router.afterEach(() => selesaiProgressRute());
-router.onError(() => selesaiProgressRute());
+router.afterEach(() => {
+  selesaiProgressRute();
+  // navigasi berhasil → reset penanda anti-loop reload
+  sessionStorage.removeItem("__reload_chunk__");
+});
+
+// Kalau file JS halaman gagal dimuat (biasanya karena build baru di-deploy
+// sementara browser masih pakai index.html lama → nama file berubah),
+// muat ulang halaman SEKALI secara otomatis supaya tidak blank.
+// Dulu harus refresh manual; sekarang otomatis.
+router.onError((error) => {
+  selesaiProgressRute();
+  const pesan = String((error && error.message) || "");
+  const gagalMuatModul =
+    /dynamically imported module|module script failed|ChunkLoadError|Loading chunk|Failed to fetch/i.test(
+      pesan,
+    );
+  if (gagalMuatModul && !sessionStorage.getItem("__reload_chunk__")) {
+    sessionStorage.setItem("__reload_chunk__", "1"); // cegah loop reload
+    window.location.reload();
+  }
+});
 
 export default router;
