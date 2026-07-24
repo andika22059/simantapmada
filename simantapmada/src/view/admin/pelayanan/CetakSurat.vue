@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, nextTick } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
 
@@ -939,7 +939,46 @@ const fetchSurat = async () => {
   }
 };
 
-const cetak = () => window.print();
+// Cetak yang aman: tunggu data, font web, dan semua gambar (logo/TTD) siap
+// dulu sebelum window.print(). Ini mencegah "cetak pertama blank, harus
+// refresh" — dulu print dijalankan sebelum font/gambar termuat.
+const mencetak = ref(false);
+const cetak = async () => {
+  if (mencetak.value) return;
+  mencetak.value = true;
+  try {
+    // 1) pastikan data surat sudah termuat
+    if (!data.value?.id && !loading.value) await fetchSurat();
+    await nextTick();
+
+    // 2) tunggu font web siap (kalau belum, teks bisa tak tampil saat print)
+    if (document.fonts && document.fonts.ready) {
+      try {
+        await document.fonts.ready;
+      } catch (e) {
+        /* abaikan */
+      }
+    }
+
+    // 3) tunggu semua gambar di area surat selesai dimuat
+    const imgs = Array.from(document.querySelectorAll("#surat img"));
+    await Promise.all(
+      imgs.map((im) =>
+        im.complete
+          ? Promise.resolve()
+          : new Promise((res) => {
+              im.onload = res;
+              im.onerror = res;
+            }),
+      ),
+    );
+
+    await nextTick();
+    window.print();
+  } finally {
+    mencetak.value = false;
+  }
+};
 const kembali = () => router.back();
 
 // Pastikan token terpasang sebelum request apa pun.
